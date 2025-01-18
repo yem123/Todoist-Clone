@@ -1,0 +1,13 @@
+.add-task-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.add-task-button span:first-child {
+    color: rgb(191, 51, 51);
+}
+
+.add-label {
+    color: rgba(67, 67, 67, 0.626);
+}

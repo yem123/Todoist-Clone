@@ -1,0 +1,87 @@
+.task {
+    position: relative;
+}
+
+.task ul {
+    list-style: none;
+}
+
+.task::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 97%;
+    height: 1px;
+    background-color: rgba(116, 116, 116, 0.1);
+    bottom: 0;
+}
+
+.task-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 0;
+    background-color: #fff;
+}
+
+.left-task {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 5px;
+
+}
+
+.task-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 14px;
+    gap: 5px;
+}
+
+.task-description {
+    font-size: 12px;
+    color: rgba(68, 68, 68, 0.553);
+}
+
+.task-event {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.task-event span {
+    font-size: 13px;
+    color: rgb(194, 68, 68);
+}
+
+.task-event>span:first-child {
+    font-size: 16px;
+}
+
+.task-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-center;
+    gap: 20px;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: flex-start;
+    color: rgb(136, 136, 136);
+    gap: 10px;
+}
+
+.task-category {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.task-category span {
+    font-size: 12px;
+}

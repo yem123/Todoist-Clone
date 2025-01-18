@@ -1,0 +1,44 @@
+.today-contents {
+    display: flex;
+    flex-direction: column;
+}
+
+.today-contents>header {
+    margin-left: 25px;
+    font-weight: bolder;
+    color: black;
+}
+
+.total-tasks {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.total-tasks span {
+    font-size: 13px;
+    color: #888;
+}
+
+.overdue-section {
+    margin-top: 30px;
+    padding-bottom: 10px;
+}
+
+.today-tasks-section {
+    margin-top: 20px;
+}
+
+.editor-section {
+    margin-top: 5px;
+    margin-left: 25px;
+}
+
+.editor.hidden {
+    display: none;
+}
+
+.add-task-section {
+    margin-top: 20px;
+}

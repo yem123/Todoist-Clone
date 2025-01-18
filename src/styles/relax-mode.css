@@ -1,0 +1,25 @@
+.no-tasks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.today-image {
+    width: 50%;
+}
+
+.task-motivation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.task-motivation p {
+    line-height: 20px;
+    color: rgb(137, 137, 137);
+    text-align: center;
+}

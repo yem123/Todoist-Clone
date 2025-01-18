@@ -1,0 +1,38 @@
+.overdue-contents {
+    display: flex;
+    flex-direction: column;
+}
+
+.overdue-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 10px;
+}
+
+.overdue-header::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 97%;
+    height: 1px;
+    background-color: rgba(116, 116, 116, 0.1);
+    bottom: 0;
+}
+
+.overdue-toggle {
+    display: flex;
+    align-items: flex-end;
+}
+
+.overdue-label {
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.reschedule-btn {
+    font-size: 13px;
+    color: #f44336;
+    font-weight: 600;
+}

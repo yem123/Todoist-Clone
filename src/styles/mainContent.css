@@ -1,0 +1,15 @@
+.main-contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.today-section {
+    padding: 65px 15.5%;
+}
+
+.view-button-section {
+    position: absolute;
+    top: 20px;
+    right: 100px;
+}
