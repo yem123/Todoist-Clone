@@ -1,11 +1,13 @@
 import "../styles/today-tasks.css";
 import Task from "./Task";
 
-function TodayTasks() {
+function TodayTasks({ setIsEditorOpen }) {
   return (
-    <div>
+    <div className="today-tasks">
       <span className="today-tasks-date">13 Jan ‧ Today ‧ Monday</span>
-      <Task />
+      <div>
+        <Task setIsEditorOpen={setIsEditorOpen} />
+      </div>
     </div>
   );
 }

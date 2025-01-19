@@ -1,7 +1,13 @@
+.today-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
 .today-tasks-date {
     margin-left: 25px;
     padding-bottom: 5px;
-    border-bottom: 1px solid rgba(116, 116, 116, 0.149);
+    border-bottom: 1px solid rgb(237, 237, 237);
     font-size: 14px;
     font-weight: bolder;
 }

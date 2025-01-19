@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/task.css";
 
-const Task = () => {
+const Task = ({ setIsEditorOpen }) => {
   const [isEnter, setIsEnter] = useState(false);
 
   return (
@@ -32,7 +32,10 @@ const Task = () => {
             <div
               className={`action-buttons ${isEnter ? "show-me" : "hide-me"}`}
             >
-              <div className="edit-task-btn">
+              <div
+                className="edit-task-btn"
+                onClick={() => setIsEditorOpen(true)}
+              >
                 <span className="material-symbols-outlined">edit_square</span>
               </div>
               <div className="delete-task-btn">

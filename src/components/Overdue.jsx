@@ -1,7 +1,7 @@
 import "../styles/overdue.css";
 import Task from "./Task";
 
-const Overdue = () => {
+const Overdue = ({ setIsEditorOpen }) => {
   return (
     <div className="overdue-contents">
       <header className="overdue-header">
@@ -11,7 +11,7 @@ const Overdue = () => {
         </div>
         <div className="reschedule-btn">Reschedule</div>
       </header>
-      <Task />
+      <Task setIsEditorOpen={setIsEditorOpen} />
     </div>
   );
 };

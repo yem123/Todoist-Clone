@@ -1,6 +1,6 @@
 import "../styles/editor.css";
 
-function Editor() {
+function Editor({ setIsEditorOpen }) {
   return (
     <section className="editor-container">
       <div className="input-contents">
@@ -20,7 +20,9 @@ function Editor() {
         </div>
 
         <div className="action-buttons">
-          <button className="cancel">Cancel</button>
+          <button className="cancel" onClick={() => setIsEditorOpen(false)}>
+            Cancel
+          </button>
           <button className="save">Add task</button>
         </div>
       </div>

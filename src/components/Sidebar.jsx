@@ -59,9 +59,9 @@ const Sidebar = ({ showItems }) => {
         <section className="categories">
           <header className="categories-bar onhover">
             <div>Categories</div>
-            <div className={` ${showItems ? "right-icons" : "hide-me"}`}>
-              <span className="material-symbols-outlined">expand_more</span>
+            <div className={` ${showItems ? "show-me" : "hide-me"}`}>
               <span className="material-symbols-outlined">add</span>
+              <span className="material-symbols-outlined">expand_more</span>
             </div>
           </header>
           <ul className="sub-category">

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Add from "./Add";
 import Editor from "./Editor";
 import Overdue from "./Overdue";
@@ -6,6 +7,8 @@ import "../styles/today.css";
 import RelaxMode from "./RelaxMode";
 
 const Today = () => {
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+
   return (
     <main>
       <section className="today-contents">
@@ -18,16 +21,20 @@ const Today = () => {
         </header>
 
         <section className="overdue-section">
-          <Overdue />
+          <Overdue setIsEditorOpen={setIsEditorOpen} />
         </section>
         <section className="today-tasks-section">
-          <TodayTasks />
+          <TodayTasks setIsEditorOpen={setIsEditorOpen} />
         </section>
-
-        <section className="editor-section">
-          <Editor />
-        </section>
-        <section className="add-task-section">
+        {isEditorOpen && (
+          <section className="editor-section">
+            <Editor setIsEditorOpen={setIsEditorOpen} />
+          </section>
+        )}
+        <section
+          className="add-task-section"
+          onClick={() => setIsEditorOpen(true)}
+        >
           <Add />
         </section>
         <section>
