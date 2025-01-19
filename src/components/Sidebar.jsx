@@ -1,5 +1,5 @@
 import "../styles/sidebar.css";
-const Sidebar = () => {
+const Sidebar = ({ showItems }) => {
   return (
     <div className="side-bar-contents">
       <header className="menu-header">
@@ -59,7 +59,7 @@ const Sidebar = () => {
         <section className="categories">
           <header className="categories-bar onhover">
             <div>Categories</div>
-            <div className="right-symbols">
+            <div className={` ${showItems ? "right-icons" : "hide-me"}`}>
               <span className="material-symbols-outlined">expand_more</span>
               <span className="material-symbols-outlined">add</span>
             </div>

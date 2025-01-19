@@ -105,6 +105,9 @@
     font-weight: bold;
 }
 
+.right-icons {
+    opacity: 1;
+}
 .sub-category {
     display: flex;
     flex-direction: column;
