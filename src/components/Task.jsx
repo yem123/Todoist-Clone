@@ -1,11 +1,21 @@
+import { useState } from "react";
 import "../styles/task.css";
+
 const Task = () => {
+  const [isEnter, setIsEnter] = useState(false);
+
   return (
     <section className="task">
       <ul>
-        <li className="task-item">
+        <li
+          className="task-item"
+          onMouseEnter={() => setIsEnter(true)}
+          onMouseLeave={() => setIsEnter(false)}
+        >
           <div className="left-task">
-            <span className="material-symbols-outlined">drag_indicator</span>
+            <span className={isEnter ? "show-me" : "hide-me"}>
+              <span className="material-symbols-outlined">drag_indicator</span>
+            </span>
             <span className="material-symbols-outlined">
               radio_button_unchecked
             </span>
@@ -19,11 +29,13 @@ const Task = () => {
             </div>
           </div>
           <div className="task-actions">
-            <div className="action-buttons">
-              <div className="edit-task-btn hidden">
+            <div
+              className={`action-buttons ${isEnter ? "show-me" : "hide-me"}`}
+            >
+              <div className="edit-task-btn">
                 <span className="material-symbols-outlined">edit_square</span>
               </div>
-              <div className="delete-task-btn hidden">
+              <div className="delete-task-btn">
                 <span className="material-symbols-outlined">delete</span>
               </div>
             </div>

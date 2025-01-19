@@ -18,17 +18,16 @@
 
 .task-item {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: start;
     padding: 10px 0;
     background-color: #fff;
 }
 
 .left-task {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: start;
+        justify-content: start;
     gap: 5px;
 
 }
@@ -36,7 +35,7 @@
 .task-inputs {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: start;
     font-size: 14px;
     gap: 5px;
 }
@@ -48,8 +47,8 @@
 
 .task-event {
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
+    align-items: end;
+        justify-content: start;
     gap: 5px;
 }
 
@@ -65,20 +64,21 @@
 .task-actions {
     display: flex;
     flex-direction: column;
-    align-items: flex-center;
-    gap: 20px;
+    align-self: end;
 }
 
 .action-buttons {
     display: flex;
-    align-items: flex-start;
-    color: rgb(136, 136, 136);
+    align-items: start;
     gap: 10px;
 }
 
+.action-buttons span {
+    color: rgb(177, 177, 177);
+}
 .task-category {
     display: flex;
-    align-items: flex-end;
+    align-items: end;
     gap: 5px;
 }
 
