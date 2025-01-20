@@ -66,14 +66,16 @@ const Sidebar = ({ showItems }) => {
           </header>
           <ul className="sub-category">
             <li className="sub-category-contents onhover">
-              <div>
-                <span className="hash">#</span> Grocery-List
+              <div className="sub-category-label">
+                <span className="material-icons-outlined hash">tag</span>
+                <span>Grocery-List</span>
               </div>
               <span className="numbers">11</span>
             </li>
             <li className="sub-category-contents onhover">
-              <div>
-                <span className="hash">#</span> Work
+              <div className="sub-category-label">
+                <span className="material-icons-outlined hash">tag</span>
+                <span> Work</span>
               </div>
               <span className="numbers">5</span>
             </li>

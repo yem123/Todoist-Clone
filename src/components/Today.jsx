@@ -1,45 +1,77 @@
 import { useState } from "react";
 import Add from "./Add";
 import Editor from "./Editor";
-import Overdue from "./Overdue";
-import TodayTasks from "./TodayTasks";
+{
+  /*import Overdue from "./Overdue";*/
+}
+import Task from "./Task";
 import "../styles/today.css";
 import RelaxMode from "./RelaxMode";
 
 const Today = () => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [editTask, setEditTask] = useState(null);
+
+  const [tasks, setTasks] = useState([]);
+
+  const handleEditTask = (task) => {
+    setEditTask(task);
+    setIsEditorOpen(true);
+  };
+
+  const handleAddTask = () => {
+    setIsEditorOpen(true);
+  };
 
   return (
     <main>
       <section className="today-contents">
         <header>
           <h2>Today</h2>
-          <div className="total-tasks">
-            <span className="material-icons-outlined">check_circle</span>
-            <span>2 tasks</span>
-          </div>
+          {tasks.length > 0 ? (
+            <div className="total-tasks">
+              <span className="material-icons-outlined">check_circle</span>
+              <span>
+                {`${tasks.length} ${tasks.length === 1 ? "task" : "tasks"}`}
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
         </header>
-
-        <section className="overdue-section">
+        {/*<section className="overdue-section">
           <Overdue setIsEditorOpen={setIsEditorOpen} />
         </section>
-        <section className="today-tasks-section">
-          <TodayTasks setIsEditorOpen={setIsEditorOpen} />
+        */}
+        <section>
+          <Task
+            tasks={tasks}
+            setTasks={setTasks}
+            handleEditTask={handleEditTask}
+          />
         </section>
         {isEditorOpen && (
           <section className="editor-section">
-            <Editor setIsEditorOpen={setIsEditorOpen} />
+            <Editor
+              tasks={tasks}
+              setTasks={setTasks}
+              setEditTask={setEditTask}
+              editTask={editTask}
+              setIsEditorOpen={setIsEditorOpen}
+            />
           </section>
         )}
-        <section
-          className="add-task-section"
-          onClick={() => setIsEditorOpen(true)}
-        >
-          <Add />
-        </section>
-        <section>
-          <RelaxMode />
-        </section>
+
+        {!isEditorOpen && (
+          <section className="add-task-section">
+            <Add handleAddTask={handleAddTask} />
+          </section>
+        )}
+        {!isEditorOpen && tasks.length === 0 && (
+          <section>
+            <RelaxMode />
+          </section>
+        )}
       </section>
     </main>
   );

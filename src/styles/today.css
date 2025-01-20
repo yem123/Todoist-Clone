@@ -1,12 +1,8 @@
-.today-contents {
-    display: flex;
-    flex-direction: column;
-}
-
 .today-contents>header {
     margin-left: 25px;
     font-weight: bolder;
     color: black;
+    margin-bottom: 20px;
 }
 
 .total-tasks {
@@ -41,5 +37,5 @@
 
 .add-task-section {
     margin-top: 10px;
-        margin-left: 25px;
+    margin-left: 25px;
 }

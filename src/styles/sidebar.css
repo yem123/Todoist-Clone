@@ -121,6 +121,16 @@
     font-size: 14px;
 }
 
+.sub-category-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hash {
+    font-size: 17px;
+    color: rgb(147, 147, 147);
+}
 .numbers {
     color: rgb(149, 149, 149);
     font-size: 12px;

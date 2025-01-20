@@ -12,6 +12,7 @@ const Overdue = ({ setIsEditorOpen }) => {
         <div className="reschedule-btn">Reschedule</div>
       </header>
       <Task setIsEditorOpen={setIsEditorOpen} />
+      <span className="today-tasks-date">13 Jan ‧ Today ‧ Monday</span>
     </div>
   );
 };
