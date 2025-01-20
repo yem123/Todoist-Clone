@@ -15,7 +15,7 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
   }, [editTask]);
 
   const saveTask = () => {
-    if (taskName.trim() !== "") {
+    
       const updatedTasks = [...tasks];
       if (editTask) {
         const index = tasks.findIndex((task) => task === editTask);
@@ -28,15 +28,12 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
           taskName: taskName.trim(),
           description: description.trim(),
         });
-        setTaskName("");
-        setEditTask(null);
-        setDescription("");
-        setIsEditorOpen(false);
       }
-
+      setTaskName("");
+      setEditTask(null);
+      setDescription("");
       setTasks(updatedTasks);
-    }
-    closeEditor();
+    
   };
 
   const closeEditor = () => {

@@ -3,6 +3,7 @@ import "../styles/task.css";
 
 const Task = ({ tasks, setTasks, handleEditTask }) => {
   const [isEnter, setIsEnter] = useState(null);
+  const [radioHover, setRadioHover] = useState(null);
 
   const deleteTask = (index) => {
     setTasks(tasks.filter((_, i) => i !== index));
@@ -27,8 +28,12 @@ const Task = ({ tasks, setTasks, handleEditTask }) => {
               <span
                 className="material-symbols-outlined"
                 onClick={() => deleteTask(index)}
+                onMouseEnter={() => setRadioHover(index)}
+                onMouseLeave={() => setRadioHover(null)}
               >
-                radio_button_unchecked
+                {radioHover === index
+                  ? "check_circle"
+                  : "radio_button_unchecked"}
               </span>
               <div className="task-inputs">
                 <span className="item">{task.taskName}</span>

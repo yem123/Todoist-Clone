@@ -14,13 +14,10 @@
 .task-item::after {
     content: '';
     position: absolute;
-
     right: 0;
-
     width: 97%;
-
     height: 1px;
-    background-color: rgba(133, 133, 133, 0.278);
+    background-color: rgba(133, 133, 133, 0.179);
     bottom: 0;
 }
 
