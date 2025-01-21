@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/task.css";
+import { format } from "date-fns";
 
 const Task = ({ tasks, setTasks, handleEditTask }) => {
   const [isEnter, setIsEnter] = useState(null);
@@ -40,7 +41,7 @@ const Task = ({ tasks, setTasks, handleEditTask }) => {
                 <p className="task-description">{task.description}</p>
                 <div className="task-event">
                   <span className="material-symbols-outlined">event</span>
-                  <span>Yesterday</span>
+                  <span>{format(task.dateSelected, "dd MMM")}</span>
                 </div>
               </div>
             </div>

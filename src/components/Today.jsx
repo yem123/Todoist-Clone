@@ -27,7 +27,7 @@ const Today = () => {
     <main>
       <section className="today-contents">
         <header>
-          <h2>Today</h2>
+          <h1>Today</h1>
           {tasks.length > 0 ? (
             <div className="total-tasks">
               <span className="material-icons-outlined">check_circle</span>

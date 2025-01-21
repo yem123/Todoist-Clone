@@ -1,6 +1,7 @@
 .today-contents>header {
+    font-size: 26px;
     margin-left: 25px;
-    font-weight: bolder;
+    font-weight: 600;
     color: black;
     margin-bottom: 20px;
 }

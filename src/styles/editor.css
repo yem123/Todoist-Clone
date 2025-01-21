@@ -7,6 +7,7 @@
 }
 
 .input-contents {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -14,6 +15,12 @@
     border-bottom: 2px solid rgba(201, 201, 201, 0.23);
 }
 
+.date-picker {
+    position: absolute;
+    top: 60px;
+    left: 80px;
+    display: flex;
+}
 .text-field {
     font-size: 13px;
         color: rgb(101, 100, 100);

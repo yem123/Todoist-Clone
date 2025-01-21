@@ -1,46 +1,81 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../styles/editor.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "../styles/customDate.css";
+import { format } from "date-fns";
 
 function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
 
-  const isDisabled = taskName === "";
+  const [dateSelected, setDateSelected] = useState(null);
+
+  const handleDateChange = (newDate) => {
+    setDateSelected(newDate);
+    setIsPickerOpen(false);
+  };
+
+  const dateButtonRef = useRef(null);
+  const datePickerRef = useRef(null);
+
+  const handleDocumentClick = (event) => {
+    dateButtonRef.current &&
+    datePickerRef.current &&
+    (dateButtonRef.current.contains(event.target) ||
+      datePickerRef.current.contains(event.target))
+      ? setIsPickerOpen(true)
+      : setIsPickerOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleDocumentClick);
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentClick);
+    };
+  }, []);
+
+  const isDisabled = taskName.trim() === "";
 
   useEffect(() => {
     if (editTask) {
-      setTaskName(editTask.taskName);
-      setDescription(editTask.description);
+      setTaskName(editTask.taskName || "");
+      setDescription(editTask.description || "");
+      setDateSelected(editTask.dateSelected || null);
     }
   }, [editTask]);
 
-  const saveTask = () => {
-    
-      const updatedTasks = [...tasks];
-      if (editTask) {
-        const index = tasks.findIndex((task) => task === editTask);
-        updatedTasks[index] = {
-          taskName: taskName.trim(),
-          description: description.trim(),
-        };
-      } else {
-        updatedTasks.push({
-          taskName: taskName.trim(),
-          description: description.trim(),
-        });
-      }
-      setTaskName("");
-      setEditTask(null);
-      setDescription("");
-      setTasks(updatedTasks);
-    
-  };
-
-  const closeEditor = () => {
+  const resetEditor = () => {
     setTaskName("");
+    setDescription("");
     setEditTask(null);
     setIsEditorOpen(false);
-    setDescription("");
+    setDateSelected(null);
+  };
+
+  const saveTask = () => {
+    const updatedTasks = [...tasks];
+    if (editTask) {
+      const index = tasks.findIndex((task) => task.id === editTask.id);
+      updatedTasks[index] = {
+        ...editTask,
+        taskName: taskName.trim(),
+        description: description.trim(),
+        dateSelected: dateSelected,
+      };
+    } else {
+      const newTask = {
+        id: Date.now(),
+        taskName: taskName.trim(),
+        description: description.trim(),
+        dateSelected: dateSelected,
+      };
+      updatedTasks.push(newTask);
+    }
+
+    setTasks(updatedTasks);
+    resetEditor();
   };
 
   return (
@@ -57,11 +92,24 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
           value={description}
           placeholder="Description (optional)"
           onChange={(e) => setDescription(e.target.value)}
-        ></input>
-        <div className="date-selector onhover">
+        />
+        <div
+          className="date-selector onhover"
+          ref={dateButtonRef}
+          onClick={() => setIsPickerOpen((prev) => !prev)}
+        >
           <span className="material-icons-outlined">event</span>
-          <span>Date</span>
+          <span>{dateSelected ? format(dateSelected, "dd MMM") : "Today"}</span>
         </div>
+        {isPickerOpen && (
+          <div className="date-picker" ref={datePickerRef}>
+            <DatePicker
+              selected={dateSelected}
+              onChange={handleDateChange}
+              inline
+            />
+          </div>
+        )}
       </div>
 
       <div className="editor-actions">
@@ -72,7 +120,7 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
         </div>
 
         <div className="action-buttons">
-          <button className="cancel" onClick={closeEditor}>
+          <button className="cancel" onClick={resetEditor}>
             Cancel
           </button>
           <button
