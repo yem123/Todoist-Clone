@@ -4,6 +4,7 @@
     border: 2px solid rgba(201, 201, 201, 0.378);
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    color: #5b5b5bd5;
 }
 
 .input-contents {
@@ -15,20 +16,21 @@
     border-bottom: 2px solid rgba(201, 201, 201, 0.23);
 }
 
-.date-picker {
+.react-date-picker {
     position: absolute;
     top: 60px;
     left: 80px;
     display: flex;
 }
+
 .text-field {
+    color: #5b5b5bd5;
     font-size: 13px;
-        color: rgb(101, 100, 100);
     font-weight: 600;
     outline: none;
     border: none;
     padding: 5px 0 0 0;
-    }
+}
 
 .text-field::placeholder {
     color: rgba(39, 39, 39, 0.474);
@@ -37,27 +39,42 @@
 
 .description {
     font-size: 13px;
-    color: rgb(101, 100, 100);
+    color: #5b5b5bd5;
     border: none;
     outline: none;
 }
 
-.date-selector {
-    display: inline-flex;
+.date-actions {
+    display: flex;
     align-items: center;
-    font-size: 12px;
     width: fit-content;
     border: 1px solid rgba(128, 128, 128, 0.29);
     border-radius: 5px;
+    padding: 3px;
+        gap: 10px;
+    }
+    
+    .date-selector {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
     gap: 5px;
-    padding: 5px;
+    padding-right: 5px;
     cursor: pointer;
 }
 
-.date-selector>span:first-child {
-    font-size: 13px;
+.selected-date,
+.cancel>span {
+    color: rgb(98, 165, 241);
 }
 
+.date-actions .cancel>span {
+    display: flex;
+}
+
+.date-actions .cancel:hover {
+    color: rgb(34, 52, 52);
+}
 .editor-actions {
     display: flex;
     justify-content: space-between;
@@ -73,13 +90,6 @@
     cursor: pointer;
     padding: 5px;
     border-radius: 5px;
-}
-
-.editor-task-category>span:first-child {
-    font-size: 13px;
-}
-
-.editor-task-category>span:last-child {
     font-size: 12px;
 }
 
@@ -87,7 +97,7 @@
 
 button.cancel {
     background-color: #ebebeb;
-        color: #000000;
+    color: #000000;
     padding: 4px 12px;
     border-radius: 4px;
     cursor: pointer;
@@ -110,13 +120,13 @@ button.save {
 
 button.save:hover {
     background-color: #e61717;
-    }
-    
-    .disabled {
-        background-color: #ff4e4e66;
-        color: #ffffff;
-        padding: 6px 14px;
-        border-radius: 4px;
-        border-color: transparent;
-        cursor: not-allowed;
+}
+
+.disabled {
+    background-color: #ff4e4e66;
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 4px;
+    border-color: transparent;
+    cursor: not-allowed;
 }

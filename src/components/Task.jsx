@@ -39,10 +39,16 @@ const Task = ({ tasks, setTasks, handleEditTask }) => {
               <div className="task-inputs">
                 <span className="item">{task.taskName}</span>
                 <p className="task-description">{task.description}</p>
-                <div className="task-event">
-                  <span className="material-symbols-outlined">event</span>
-                  <span>{format(task.dateSelected, "dd MMM")}</span>
-                </div>
+                {!task.formatedDate ||
+                task.formatedDate === "01 Jan" ||
+                task.formatedDate === format(new Date(), "dd MMM") ? (
+                  ""
+                ) : (
+                  <div className="task-event">
+                    <span className="material-symbols-outlined">event</span>
+                    <span>{task.formatedDate}</span>
+                  </div>
+                )}
               </div>
             </div>
             <div className="task-actions">

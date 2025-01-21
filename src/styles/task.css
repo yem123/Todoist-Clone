@@ -50,12 +50,12 @@
 }
 
 .task-event span {
-    font-size: 13px;
+    font-size: 11px;
     color: rgb(58, 83, 92);
 }
 
 .task-event>span:first-child {
-    font-size: 16px;
+    font-size: 13px;
 }
 
 .task-actions {
@@ -78,11 +78,11 @@
 
 .task-category {
     display: flex;
-    align-self: flex-end;
     gap: 5px;
     cursor: pointer;
 }
 
 .task-category span {
     font-size: 12px;
+    align-self: self-end;
 }

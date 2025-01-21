@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Add from "./Add";
 import Editor from "./Editor";
 {
@@ -12,7 +12,21 @@ const Today = () => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editTask, setEditTask] = useState(null);
 
-  const [tasks, setTasks] = useState([]);
+  const getInitialTodos = () => {
+    try {
+      const savedTodos = localStorage.getItem("todos");
+      return savedTodos ? JSON.parse(savedTodos) : [];
+    } catch (error) {
+      console.error("Failed to load todos from localStorage:", error);
+      return [];
+    }
+  };
+
+  const [tasks, setTasks] = useState(getInitialTodos);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleEditTask = (task) => {
     setEditTask(task);
@@ -68,7 +82,7 @@ const Today = () => {
           </section>
         )}
         {!isEditorOpen && tasks.length === 0 && (
-          <section>
+          <section className="relax-mode">
             <RelaxMode />
           </section>
         )}
