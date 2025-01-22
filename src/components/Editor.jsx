@@ -3,24 +3,52 @@ import "../styles/editor.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/customDate.css";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 
 function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [dateSelected, setDateSelected] = useState(null);
+  const [displayText, setDisplayText] = useState("");
 
-  const formatedDate = format(dateSelected, "dd MMM");
   const today = new Date();
 
   const handleDateChange = (newDate) => {
+    const today = new Date();
+    const yesterday = new Date();
+    const tomorrow = new Date();
+
+    yesterday.setDate(today.getDate() - 1);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const formatDate = (d) =>
+      new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+    const formattedDate = formatDate(newDate);
+    const formattedToday = formatDate(today);
+    const formattedYesterday = formatDate(yesterday);
+    const formattedTomorrow = formatDate(tomorrow);
+
+    let text = format(newDate, "dd MMM");
+
+    if (formattedDate.getTime() === formattedToday.getTime()) {
+      text = "Today";
+    } else if (formattedDate.getTime() === formattedYesterday.getTime()) {
+      text = "Yesterday";
+    } else if (formattedDate.getTime() === formattedTomorrow.getTime()) {
+      text = "Tomorrow";
+    }
+
+    setDisplayText(text);
+
     setDateSelected(newDate);
     setIsPickerOpen(false);
   };
 
   const handleDateCancel = () => {
     setDateSelected(null);
+    setDisplayText("");
   };
 
   const dateButtonRef = useRef(null);
@@ -48,7 +76,8 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
     if (editTask) {
       setTaskName(editTask.taskName || "");
       setDescription(editTask.description || "");
-      setDateSelected(editTask.dateSelected || null);
+      setDisplayText(editTask.formatedDate || "");
+      setDateSelected(editTask.setDateSelected || null);
     }
   }, [editTask]);
 
@@ -69,7 +98,7 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
         taskName: taskName.trim(),
         description: description.trim(),
         dateSelected: dateSelected,
-        formatedDate: formatedDate,
+        formatedDate: displayText,
       };
     } else {
       const newTask = {
@@ -77,7 +106,7 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
         taskName: taskName.trim(),
         description: description.trim(),
         dateSelected: dateSelected,
-        formatedDate: formatedDate,
+        formatedDate: displayText,
       };
       updatedTasks.push(newTask);
     }
@@ -114,13 +143,13 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
             >
               event
             </span>
-            {!dateSelected ? (
+            {!(dateSelected || displayText) ? (
               <span> Date </span>
             ) : (
-              <span className="selected-date"> {formatedDate} </span>
+              <span className="selected-date"> {displayText} </span>
             )}
           </div>
-          {dateSelected && (
+          {(dateSelected || displayText) && (
             <div className="cancel" onClick={handleDateCancel}>
               <span className="material-symbols-outlined small-icons">
                 close

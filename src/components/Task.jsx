@@ -41,7 +41,8 @@ const Task = ({ tasks, setTasks, handleEditTask }) => {
                 <p className="task-description">{task.description}</p>
                 {!task.formatedDate ||
                 task.formatedDate === "01 Jan" ||
-                task.formatedDate === format(new Date(), "dd MMM") ? (
+                task.formatedDate === format(new Date(), "dd MMM") ||
+                task.formatedDate === "Today" ? (
                   ""
                 ) : (
                   <div className="task-event">
