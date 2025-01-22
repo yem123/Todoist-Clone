@@ -12,6 +12,7 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
   const [dateSelected, setDateSelected] = useState(null);
 
   const formatedDate = format(dateSelected, "dd MMM");
+  const today = new Date();
 
   const handleDateChange = (newDate) => {
     setDateSelected(newDate);
@@ -132,6 +133,7 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
             <DatePicker
               selected={dateSelected}
               onChange={handleDateChange}
+              minDate={today}
               inline
             />
           </div>
