@@ -103,6 +103,7 @@ button.cancel {
     cursor: pointer;
     border-color: transparent;
     align-self: center;
+    font-size: 14px;
 }
 
 button.cancel:hover {
@@ -112,10 +113,11 @@ button.cancel:hover {
 button.save {
     background-color: #ff4e4e;
     color: #fff;
-    padding: 6px 14px;
+    padding: 6px 10px;
     border-radius: 4px;
     border-color: transparent;
     cursor: pointer;
+    font-size: 14px;
 }
 
 button.save:hover {
@@ -125,8 +127,9 @@ button.save:hover {
 .disabled {
     background-color: #ff4e4e66;
     color: #ffffff;
-    padding: 6px 14px;
+    padding: 6px 10px;
     border-radius: 4px;
     border-color: transparent;
     cursor: not-allowed;
+    font-size: 14px;
 }

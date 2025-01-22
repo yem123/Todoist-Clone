@@ -3,7 +3,7 @@ import "../styles/editor.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/customDate.css";
-import { format, parse } from "date-fns";
+import { format } from "date-fns";
 
 function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
   const [taskName, setTaskName] = useState("");
