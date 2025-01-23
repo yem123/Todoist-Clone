@@ -9,15 +9,16 @@
   display: flex;
   position: relative;
   width: 300px;
-  
+  height: auto;
   background-color: #fffbf7;
   padding: 10px;
-    overflow: hidden;
+    z-index: 100;
 }
 
 .main-content-section {
   position: relative;
   flex-grow: 1;
+  overflow: hidden;
   }
   
   .toggle-view {
