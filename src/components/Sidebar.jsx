@@ -9,11 +9,9 @@ const Sidebar = ({ showItems }) => {
           <span className="material-symbols-outlined">expand_more</span>
         </div>
         <div className="header-right-icons">
+          <span className="material-icons view-notif">access_time_filled</span>
           <span className="material-symbols-outlined onhover">
             notifications_none
-          </span>
-          <span className="material-symbols-outlined onhover">
-            view_sidebar
           </span>
         </div>
       </header>

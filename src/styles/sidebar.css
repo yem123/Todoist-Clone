@@ -35,10 +35,12 @@
 }
 
 .header-right-icons {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
+    margin-right: 50px;
 }
 
 .header-right-icons span {
@@ -139,10 +141,10 @@
 .features {
     position: absolute;
     width: 90%;
-    bottom: 10px;
+    bottom: 0;
     left: 0;
     padding-left: 20px;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
     background-color: #fffaf5;
 }
 

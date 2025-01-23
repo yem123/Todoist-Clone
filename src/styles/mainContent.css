@@ -3,11 +3,12 @@
 }
 
 .today-section {
+    overflow: hidden;
     padding: 65px 15.5%;
 }
 
 .view-button-section {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 100px;
 }
