@@ -1,18 +1,61 @@
 import "../styles/sidebar.css";
-const Sidebar = ({ showItems }) => {
+const Sidebar = ({
+  showItems,
+  setIsSidebarOpen,
+  isSidebarOpen,
+  sidebarWidth,
+}) => {
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const openStyles = {
+    position: "absolute",
+    zIndex: 1000,
+    right: "5px",
+  };
+
+  const closedStyles = (sidebarWidth) => ({
+    position: "absolute",
+    zIndex: 1000,
+    right:
+      sidebarWidth > 300
+        ? `${-0.12 * sidebarWidth}px`
+        : `${-0.25 * sidebarWidth}px`,
+  });
+
+  const styles = isSidebarOpen ? openStyles : closedStyles(sidebarWidth);
+
   return (
     <div className="side-bar-contents">
       <header className="menu-header">
         <div className="profile onhover">
           <span className="material-symbols-outlined">person_outline</span>
           <span className="username">yemane.measho</span>
-          <span className="material-symbols-outlined">expand_more</span>
-        </div>
-        <div className="header-right-icons">
-          <span className="material-icons view-notif">access_time_filled</span>
-          <span className="material-symbols-outlined onhover">
-            notifications_none
+          <span className="material-symbols-outlined expand-more">
+            expand_more
           </span>
+        </div>
+
+        <div className="header-icons">
+          <div className="header-notif">
+            <span className="material-icons notif-notif">
+              access_time_filled
+            </span>
+            <span className="material-symbols-outlined onhover">
+              notifications_none
+            </span>
+          </div>
+          <div className="toggle-view" onClick={toggleSidebar} style={styles}>
+            {!isSidebarOpen && (
+              <span className="material-icons view-notif">
+                access_time_filled
+              </span>
+            )}
+            <span className="material-symbols-outlined onhover">
+              view_sidebar
+            </span>
+          </div>
         </div>
       </header>
       <section className="menu-add onhover">

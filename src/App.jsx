@@ -1,62 +1,97 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./app.css";
 import MainContent from "./components/MainContent";
 import Sidebar from "./components/Sidebar";
+import { Resizable } from "re-resizable";
+
 function App() {
   const [showItems, setShowItems] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [sidebarWidth, setSidebarWidth] = useState(350);
+  const [isWindowResized, setIsWindowResized] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    const updateSidebarWidth = () => {
+      if (sidebarRef.current) {
+        setSidebarWidth(sidebarRef.current.offsetWidth);
+      }
+    };
+
+    const handleWinResize = () => {
+      if (window.innerWidth < 768) {
+        setIsSidebarOpen(false);
+        setIsWindowResized(true);
+      } else {
+        setIsSidebarOpen(true);
+        setIsWindowResized(false);
+      }
+    };
+
+    updateSidebarWidth();
+    handleWinResize();
+
+    window.addEventListener("resize", handleWinResize);
+
+    const sidebarObserver = new ResizeObserver(() => {
+      updateSidebarWidth();
+    });
+    if (sidebarRef.current) {
+      sidebarObserver.observe(sidebarRef.current);
+    }
+
+    return () => {
+      window.removeEventListener("resize", handleWinResize);
+      sidebarObserver.disconnect();
+    };
+  }, []);
 
   return (
     <>
       <div className="app">
-        <section
-          className="side-bar-section no-select"
-          onMouseEnter={() => setShowItems(true)}
-          onMouseLeave={() => setShowItems(false)}
+        <Resizable
+          defaultSize={{
+            width: 300,
+          }}
+          minWidth={208}
+          maxWidth={420}
+          enable={{ right: true }}
           style={{
+            zIndex: "10000",
             animation: `${
               isSidebarOpen
                 ? "sidebarSlideIn 0.3s forwards"
                 : "sidebarSlideOut 0.3s forwards"
             }`,
+            borderRight: "2px solid #ddd",
           }}
         >
-          <Sidebar showItems={showItems} />
-        </section>
-
-        <section
-          className="toggle-view"
-          onClick={toggleSidebar}
-          style={{
-            animation: `${
-              isSidebarOpen
-                ? "viewSlideIn 0.3s forwards"
-                : "viewSlideOut 0.3s forwards"
-            }`,
-          }}
-        >
-          {!isSidebarOpen && (
-            <span className="material-icons view-notif">
-              access_time_filled
-            </span>
-          )}
-          <span className="material-symbols-outlined onhover">
-            view_sidebar
-          </span>
-        </section>
+          <section
+            ref={sidebarRef}
+            className="side-bar-section no-select"
+            onMouseEnter={() => setShowItems(true)}
+            onMouseLeave={() => setShowItems(false)}
+          >
+            <Sidebar
+              showItems={showItems}
+              setIsSidebarOpen={setIsSidebarOpen}
+              isSidebarOpen={isSidebarOpen}
+              sidebarWidth={sidebarWidth}
+            />
+          </section>
+        </Resizable>
 
         <section
           className="main-content-section"
           style={{
-            animation: `${
-              isSidebarOpen
-                ? "mainSlideIn 0.3s forwards"
-                : "mainSlideOut 0.3s forwards"
-            }`,
+            transition: "all 0.3s ease",
+            transform:
+              !isWindowResized && !isSidebarOpen
+                ? "translateX(-20%)"
+                : isSidebarOpen
+                ? "translateX(-10%)"
+                : "translateX(-70%)",
           }}
         >
           <MainContent />

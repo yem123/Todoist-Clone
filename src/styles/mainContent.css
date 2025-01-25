@@ -1,16 +1,14 @@
-.main-contents {
-    position: relative;
-}
-
 .today-section {
-    overflow: hidden;
-    padding: 65px 15.5%;
+    padding: 50px 20%;
+    min-width: 300px;
 }
 
 .view-button-section {
     position: fixed;
+    text-align: right;
     top: 20px;
-    right: 100px;
+    right: 1%;
+    z-index: 1000;
 }
 
 .viewbar-section {
