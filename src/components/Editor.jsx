@@ -20,6 +20,11 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
 
   useClickOutside([dateButtonRef, datePickerRef], () => setIsPickerOpen(false));
 
+  const handleDateChange = (date) => {
+    setDateSelected(date);
+    setIsPickerOpen(false);
+  };
+
   const saveTask = () => {
     saveTaskUtil({
       tasks,
@@ -91,7 +96,7 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
           <div className="react-date-picker" ref={datePickerRef}>
             <DatePicker
               selected={dateSelected}
-              onChange={setDateSelected}
+              onChange={handleDateChange}
               minDate={new Date()}
               inline
             />

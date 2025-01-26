@@ -1,15 +1,21 @@
+import { useState, useRef } from "react";
 import "./app.css";
 import MainContent from "./components/MainContent";
 import Sidebar from "./components/Sidebar";
 import ViewButton from "./components/ViewButton";
 import ViewBar from "./components/ViewBar";
-import useViewToggle from "./hooks/useViewToggle";
+import useClickOutside from "./hooks/useClickOutside";
 import useSidebarLogic from "./hooks/useSidebarLogic";
 import { Resizable } from "re-resizable";
 
 function App() {
-  const { viewButtonRef, viewBarRef, setIsViewBarVisible, isViewBarVisible } =
-    useViewToggle();
+  const [isViewBarVisible, setIsViewBarVisible] = useState(false);
+  const viewButtonRef = useRef(null);
+  const viewBarRef = useRef(null);
+
+  useClickOutside([viewButtonRef, viewBarRef], () =>
+    setIsViewBarVisible(false)
+  );
 
   const {
     sidebarRef,
