@@ -1,103 +1,77 @@
-import { useState, useEffect, useRef } from "react";
 import "./app.css";
 import MainContent from "./components/MainContent";
 import Sidebar from "./components/Sidebar";
+import ViewButton from "./components/ViewButton";
+import ViewBar from "./components/ViewBar";
+import useViewToggle from "./hooks/useViewToggle";
+import useSidebarLogic from "./hooks/useSidebarLogic";
 import { Resizable } from "re-resizable";
 
 function App() {
-  const [showItems, setShowItems] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [sidebarWidth, setSidebarWidth] = useState(350);
-  const [isWindowResized, setIsWindowResized] = useState(false);
+  const { viewButtonRef, viewBarRef, setIsViewBarVisible, isViewBarVisible } =
+    useViewToggle();
 
-  const sidebarRef = useRef(null);
-
-  useEffect(() => {
-    const updateSidebarWidth = () => {
-      if (sidebarRef.current) {
-        setSidebarWidth(sidebarRef.current.offsetWidth);
-      }
-    };
-
-    const handleWinResize = () => {
-      if (window.innerWidth < 768) {
-        setIsSidebarOpen(false);
-        setIsWindowResized(true);
-      } else {
-        setIsSidebarOpen(true);
-        setIsWindowResized(false);
-      }
-    };
-
-    updateSidebarWidth();
-    handleWinResize();
-
-    window.addEventListener("resize", handleWinResize);
-
-    const sidebarObserver = new ResizeObserver(() => {
-      updateSidebarWidth();
-    });
-    if (sidebarRef.current) {
-      sidebarObserver.observe(sidebarRef.current);
-    }
-
-    return () => {
-      window.removeEventListener("resize", handleWinResize);
-      sidebarObserver.disconnect();
-    };
-  }, []);
+  const {
+    sidebarRef,
+    showItems,
+    setShowItems,
+    isSidebarOpen,
+    setIsSidebarOpen,
+    sidebarWidth,
+    isWindowResized,
+    resizerStyles,
+    mainContentMarginLeft,
+  } = useSidebarLogic();
 
   return (
-    <>
-      <div className="app">
-        <Resizable
-          defaultSize={{
-            width: 300,
-          }}
-          minWidth={208}
-          maxWidth={420}
-          enable={{ right: true }}
-          style={{
-            zIndex: "10000",
-            animation: `${
-              isSidebarOpen
-                ? "sidebarSlideIn 0.3s forwards"
-                : "sidebarSlideOut 0.3s forwards"
-            }`,
-            borderRight: "2px solid #ddd",
-          }}
-        >
-          <section
-            ref={sidebarRef}
-            className="side-bar-section no-select"
-            onMouseEnter={() => setShowItems(true)}
-            onMouseLeave={() => setShowItems(false)}
-          >
-            <Sidebar
-              showItems={showItems}
-              setIsSidebarOpen={setIsSidebarOpen}
-              isSidebarOpen={isSidebarOpen}
-              sidebarWidth={sidebarWidth}
-            />
-          </section>
-        </Resizable>
-
+    <div className="app">
+      <Resizable
+        defaultSize={{ width: 300 }}
+        minWidth={208}
+        maxWidth={420}
+        enable={{ right: true }}
+        style={resizerStyles}
+      >
         <section
-          className="main-content-section"
-          style={{
-            transition: "all 0.3s ease",
-            transform:
-              !isWindowResized && !isSidebarOpen
-                ? "translateX(-20%)"
-                : isSidebarOpen
-                ? "translateX(-10%)"
-                : "translateX(-70%)",
-          }}
+          ref={sidebarRef}
+          className="side-bar-section no-select"
+          onMouseEnter={() => setShowItems(true)}
+          onMouseLeave={() => setShowItems(false)}
         >
-          <MainContent />
+          <Sidebar
+            showItems={showItems}
+            setIsSidebarOpen={setIsSidebarOpen}
+            isSidebarOpen={isSidebarOpen}
+            sidebarWidth={sidebarWidth}
+          />
         </section>
-      </div>
-    </>
+      </Resizable>
+
+      <section
+        className="main-content-section"
+        style={{
+          backgroundColor: isSidebarOpen && isWindowResized ? "gray" : "white",
+          pointerEvents: isSidebarOpen && isWindowResized ? "none" : "auto",
+          transition: "all 0.5s ease",
+          marginLeft: mainContentMarginLeft,
+        }}
+      >
+        <section
+          className="view-button-section no-select"
+          ref={viewButtonRef}
+          onClick={() => setIsViewBarVisible((prev) => !prev)}
+        >
+          <ViewButton />
+        </section>
+
+        {isViewBarVisible && (
+          <section className="viewbar-section" ref={viewBarRef}>
+            <ViewBar />
+          </section>
+        )}
+        <MainContent />
+      </section>
+    </div>
   );
 }
 

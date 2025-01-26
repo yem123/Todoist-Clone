@@ -24,6 +24,7 @@
 }
 
 .today-tasks-section {
+    justify-self: center;
     margin-top: 30px;
 }
 

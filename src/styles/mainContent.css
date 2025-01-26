@@ -2,18 +2,3 @@
     padding: 50px 20%;
     min-width: 300px;
 }
-
-.view-button-section {
-    position: fixed;
-    text-align: right;
-    top: 20px;
-    right: 1%;
-    z-index: 1000;
-}
-
-.viewbar-section {
-    position: absolute;
-    top: 50px;
-    right: 20px;
-    width: 290px;
-}

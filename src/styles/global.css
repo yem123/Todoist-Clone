@@ -74,12 +74,12 @@ body {
     pointer-events: none;
     transition: opacity 1s ease-in-out, top 1s ease-in-out;
 }
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
     html {
-        font-size: 12px;
+        font-size: 15px;
     }
 
-}
+}*/
 
 @media (min-width: 1200px) {
     html {

@@ -1,119 +1,49 @@
-import { useState, useEffect, useRef } from "react";
-import "../styles/editor.css";
+import { useState, useRef } from "react";
+import useTaskForm from "../hooks/useTaskForm";
+import useDatePicker from "../hooks/useDatePicker";
+import useClickOutside from "../hooks/useClickOutside";
+import { saveTaskUtil } from "../utils/taskUtils";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "../styles/editor.css";
 import "../styles/customDate.css";
-import { format } from "date-fns";
 
 function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
-  const [taskName, setTaskName] = useState("");
-  const [description, setDescription] = useState("");
+  const { taskName, setTaskName, description, setDescription, resetForm } =
+    useTaskForm(editTask);
+  const { dateSelected, displayText, setDateSelected, resetDate } =
+    useDatePicker(editTask?.dateSelected || null);
+
   const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const [dateSelected, setDateSelected] = useState(null);
-  const [displayText, setDisplayText] = useState("");
-
-  const today = new Date();
-
-  const handleDateChange = (newDate) => {
-    const today = new Date();
-    const yesterday = new Date();
-    const tomorrow = new Date();
-
-    yesterday.setDate(today.getDate() - 1);
-    tomorrow.setDate(today.getDate() + 1);
-
-    const formatDate = (d) =>
-      new Date(d.getFullYear(), d.getMonth(), d.getDate());
-
-    const formattedDate = formatDate(newDate);
-    const formattedToday = formatDate(today);
-    const formattedYesterday = formatDate(yesterday);
-    const formattedTomorrow = formatDate(tomorrow);
-
-    let text = format(newDate, "dd MMM");
-
-    if (formattedDate.getTime() === formattedToday.getTime()) {
-      text = "Today";
-    } else if (formattedDate.getTime() === formattedYesterday.getTime()) {
-      text = "Yesterday";
-    } else if (formattedDate.getTime() === formattedTomorrow.getTime()) {
-      text = "Tomorrow";
-    }
-
-    setDisplayText(text);
-
-    setDateSelected(newDate);
-    setIsPickerOpen(false);
-  };
-
-  const handleDateCancel = () => {
-    setDateSelected(null);
-    setDisplayText("");
-  };
-
   const dateButtonRef = useRef(null);
   const datePickerRef = useRef(null);
 
-  const handleDocumentClick = (event) => {
-    dateButtonRef.current &&
-    datePickerRef.current &&
-    (dateButtonRef.current.contains(event.target) ||
-      datePickerRef.current.contains(event.target))
-      ? setIsPickerOpen(true)
-      : setIsPickerOpen(false);
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleDocumentClick);
-    return () => {
-      document.removeEventListener("mousedown", handleDocumentClick);
-    };
-  }, []);
-
-  const isDisabled = taskName.trim() === "";
-
-  useEffect(() => {
-    if (editTask) {
-      setTaskName(editTask.taskName || "");
-      setDescription(editTask.description || "");
-      setDisplayText(editTask.formatedDate || "");
-      setDateSelected(editTask.setDateSelected || null);
-    }
-  }, [editTask]);
-
-  const resetEditor = () => {
-    setTaskName("");
-    setDescription("");
-    setEditTask(null);
-    setIsEditorOpen(false);
-    setDateSelected(null);
-  };
+  useClickOutside([dateButtonRef, datePickerRef], () => setIsPickerOpen(false));
 
   const saveTask = () => {
-    const updatedTasks = [...tasks];
-    if (editTask) {
-      const index = tasks.findIndex((task) => task.id === editTask.id);
-      updatedTasks[index] = {
-        ...editTask,
-        taskName: taskName.trim(),
-        description: description.trim(),
-        dateSelected: dateSelected,
-        formatedDate: displayText,
-      };
-    } else {
-      const newTask = {
-        id: Date.now(),
-        taskName: taskName.trim(),
-        description: description.trim(),
-        dateSelected: dateSelected,
-        formatedDate: displayText,
-      };
-      updatedTasks.push(newTask);
-    }
-
-    setTasks(updatedTasks);
-    resetEditor();
+    saveTaskUtil({
+      tasks,
+      setTasks,
+      taskName,
+      description,
+      dateSelected,
+      displayText,
+      editTask,
+    });
+    resetForm();
+    resetDate();
+    setEditTask(null);
+    setIsEditorOpen(false);
   };
+
+  const cancelEditor = () => {
+    resetForm();
+    resetDate();
+    setEditTask(null);
+    setIsEditorOpen(false);
+  };
+
+  const isDisabled = taskName.trim() === "";
 
   return (
     <section className="editor-container">
@@ -144,13 +74,13 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
               event
             </span>
             {!(dateSelected || displayText) ? (
-              <span> Date </span>
+              <span>Date</span>
             ) : (
-              <span className="selected-date"> {displayText} </span>
+              <span className="selected-date">{displayText}</span>
             )}
           </div>
           {(dateSelected || displayText) && (
-            <div className="cancel" onClick={handleDateCancel}>
+            <div className="cancel" onClick={resetDate}>
               <span className="material-symbols-outlined small-icons">
                 close
               </span>
@@ -161,8 +91,8 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
           <div className="react-date-picker" ref={datePickerRef}>
             <DatePicker
               selected={dateSelected}
-              onChange={handleDateChange}
-              minDate={today}
+              onChange={setDateSelected}
+              minDate={new Date()}
               inline
             />
           </div>
@@ -179,7 +109,7 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
         </div>
 
         <div className="action-buttons">
-          <button className="cancel" onClick={resetEditor}>
+          <button className="cancel" onClick={cancelEditor}>
             Cancel
           </button>
           <button

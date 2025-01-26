@@ -3,19 +3,35 @@
   display: flex;
   width: 100vw;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 .side-bar-section {
   background-color: #fffbf7;
   padding: 10px;
   box-sizing: border-box;
-  height: 100%;
+  z-index: 20000;
 }
 
 .main-content-section {
   position: relative;
   flex: 1;
+  overflow-y: scroll;
+  
+}
+
+.view-button-section {
+  position: absolute;
+  top: 20px;
+  right: 100px;
+  z-index: 1000;
+}
+
+.viewbar-section {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  width: 290px;
 }
 
 @keyframes sidebarSlideOut {

@@ -1,8 +1,6 @@
-.side-bar-contents {
-    display: flex;
-    flex-direction: column;
+.side-bar-contents{
+    background-color: #fffbf7;
 }
-
 .menu-header {
     display: flex;
     flex-direction: row;
