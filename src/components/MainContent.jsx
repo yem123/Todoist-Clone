@@ -1,12 +1,12 @@
 import "../styles/mainContent.css";
 import Today from "./Today";
 
-const MainContent = () => {
+const MainContent = ({isWindowResized}) => {
 
   return (
     <div className="main-contents">
       <section className="today-section no-select">
-        <Today />
+        <Today isWindowResized={isWindowResized } />
       </section>
     </div>
   );

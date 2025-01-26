@@ -8,7 +8,7 @@ import Task from "./Task";
 import "../styles/today.css";
 import RelaxMode from "./RelaxMode";
 
-const Today = () => {
+const Today = ({isWindowResized}) => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editTask, setEditTask] = useState(null);
 
@@ -82,7 +82,12 @@ const Today = () => {
           </section>
         )}
         {!isEditorOpen && tasks.length === 0 && (
-          <section className="relax-mode">
+          <section
+            className="relax-mode"
+            style={{
+              mixBlendMode: isWindowResized ? "multiply" : "normal",
+            }}
+          >
             <RelaxMode />
           </section>
         )}

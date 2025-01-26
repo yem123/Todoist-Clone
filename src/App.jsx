@@ -86,7 +86,7 @@ function App() {
             <ViewBar />
           </section>
         )}
-        <MainContent />
+        <MainContent isWindowResized={isWindowResized } />
       </section>
     </div>
   );
