@@ -9,15 +9,16 @@ import "../styles/editor.css";
 import "../styles/customDate.css";
 
 function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
-  const { taskName, setTaskName, description, setDescription, resetForm } =
-    useTaskForm(editTask);
-  const { dateSelected, displayText, setDateSelected, resetDate } =
-    useDatePicker(editTask?.dateSelected || null);
 
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const dateButtonRef = useRef(null);
   const datePickerRef = useRef(null);
 
+  const { taskName, setTaskName, description, setDescription, resetForm } =
+    useTaskForm(editTask);
+  const { dateSelected, displayText, setDateSelected, resetDate } =
+    useDatePicker(editTask?.dateSelected || null);
+  
   useClickOutside([dateButtonRef, datePickerRef], () => setIsPickerOpen(false));
 
   const handleDateChange = (date) => {

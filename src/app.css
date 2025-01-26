@@ -3,7 +3,7 @@
   display: flex;
   width: 100vw;
   height: 100vh;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 .side-bar-section {
@@ -14,8 +14,8 @@
 }
 
 .main-content-section {
-  position: relative;
   flex: 1;
+  overflow-x: hidden;
   overflow-y: scroll;
   
 }

@@ -1,30 +1,18 @@
 import "../styles/sidebar.css";
+
 const Sidebar = ({
   showItems,
   setIsSidebarOpen,
   isSidebarOpen,
-  sidebarWidth,
+  setSidebarWidth,
 }) => {
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+    if (!isSidebarOpen) {
+      setSidebarWidth(300);
+    }
   };
-
-  const openStyles = {
-    position: "absolute",
-    zIndex: 1000,
-    right: "5px",
-  };
-
-  const closedStyles = (sidebarWidth) => ({
-    position: "absolute",
-    zIndex: 1000,
-    right:
-      sidebarWidth > 300
-        ? `${-0.12 * sidebarWidth}px`
-        : `${-0.25 * sidebarWidth}px`,
-  });
-
-  const styles = isSidebarOpen ? openStyles : closedStyles(sidebarWidth);
 
   return (
     <div className="side-bar-contents">
@@ -46,7 +34,15 @@ const Sidebar = ({
               notifications_none
             </span>
           </div>
-          <div className="toggle-view" onClick={toggleSidebar} style={styles}>
+          <div
+            className="toggle-view"
+            onClick={toggleSidebar}
+            style={{
+              position: "absolute",
+              zIndex: 1000,
+              right: isSidebarOpen ? "5px" : "-50px",
+            }}
+          >
             {!isSidebarOpen && (
               <span className="material-icons view-notif">
                 access_time_filled

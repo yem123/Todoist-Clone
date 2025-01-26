@@ -43,6 +43,7 @@ const useSidebarLogic = () => {
   }, []);
 
   const resizerStyles = {
+    position: !isSidebarOpen ? "absolute" : "relative",
     backgroundColor: " #fffbf7",
     zIndex: "10000",
     height: "100%",
@@ -54,15 +55,6 @@ const useSidebarLogic = () => {
     borderRight: "2px solid #ddd",
   };
 
-  const mainContentMarginLeft = isWindowResized
-    ? isSidebarOpen
-      ? "-500px"
-      : sidebarWidth > 300 
-      ? "-460px" : "-320px"
-    : isSidebarOpen
-      ? "-150px"
-      : "-350px";
-
   return {
     sidebarRef,
     showItems,
@@ -70,9 +62,9 @@ const useSidebarLogic = () => {
     isSidebarOpen,
     setIsSidebarOpen,
     isWindowResized,
+    setSidebarWidth,
     sidebarWidth,
     resizerStyles,
-    mainContentMarginLeft,
   };
 };
 

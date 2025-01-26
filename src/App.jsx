@@ -12,22 +12,28 @@ function App() {
   const [isViewBarVisible, setIsViewBarVisible] = useState(false);
   const viewButtonRef = useRef(null);
   const viewBarRef = useRef(null);
-
-  useClickOutside([viewButtonRef, viewBarRef], () =>
-    setIsViewBarVisible(false)
-  );
-
-  const {
+ 
+   const {
     sidebarRef,
     showItems,
     setShowItems,
     isSidebarOpen,
     setIsSidebarOpen,
-    sidebarWidth,
+     sidebarWidth,
+    setSidebarWidth,
     isWindowResized,
     resizerStyles,
-    mainContentMarginLeft,
   } = useSidebarLogic();
+
+  useClickOutside([sidebarRef], () => {
+    if (isSidebarOpen && isWindowResized) {
+      setIsSidebarOpen(false);
+    }
+  });
+  
+  useClickOutside([viewButtonRef, viewBarRef], () =>
+    setIsViewBarVisible(false)
+   );
 
   return (
     <div className="app">
@@ -48,6 +54,7 @@ function App() {
             showItems={showItems}
             setIsSidebarOpen={setIsSidebarOpen}
             isSidebarOpen={isSidebarOpen}
+            setSidebarWidth={setSidebarWidth}
             sidebarWidth={sidebarWidth}
           />
         </section>
@@ -58,8 +65,12 @@ function App() {
         style={{
           backgroundColor: isSidebarOpen && isWindowResized ? "gray" : "white",
           pointerEvents: isSidebarOpen && isWindowResized ? "none" : "auto",
-          transition: "all 0.5s ease",
-          marginLeft: mainContentMarginLeft,
+          marginLeft: !isWindowResized
+            ? isSidebarOpen
+              ? `${0.1 * sidebarWidth}px`
+              : `${-0.2 * sidebarWidth}px`
+            : "-100px",
+          transition: "all 0.3s ease",
         }}
       >
         <section
