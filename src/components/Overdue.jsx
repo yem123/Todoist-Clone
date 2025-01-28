@@ -1,5 +1,5 @@
 import "../styles/overdue.css";
-import Task from "./Task";
+import Task from "./mainContent/Task/Task";
 
 const Overdue = ({ setIsEditorOpen }) => {
   return (

@@ -1,5 +1,10 @@
+import { useTaskContext } from "../context/useTaskContext";
 import "../styles/add.css";
-const Add = ({ handleAddTask }) => {
+
+const Add = () => {
+
+  const { handleAddTask } = useTaskContext();
+
   return (
     <div className="add-task-button" onClick={handleAddTask}>
       <span className="material-symbols-outlined">add</span>

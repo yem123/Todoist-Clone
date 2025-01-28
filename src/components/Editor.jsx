@@ -3,12 +3,14 @@ import useTaskForm from "../hooks/useTaskForm";
 import useDatePicker from "../hooks/useDatePicker";
 import useClickOutside from "../hooks/useClickOutside";
 import { saveTaskUtil } from "../utils/taskUtils";
+import { useTaskContext } from "../context/useTaskContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/editor.css";
 import "../styles/customDate.css";
 
-function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
+function Editor( ) {
+  const { tasks, setTasks, editTask, setEditTask, setIsEditorOpen } = useTaskContext();
 
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const dateButtonRef = useRef(null);
@@ -18,7 +20,7 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
     useTaskForm(editTask);
   const { dateSelected, displayText, setDateSelected, resetDate } =
     useDatePicker(editTask?.dateSelected || null);
-  
+
   useClickOutside([dateButtonRef, datePickerRef], () => setIsPickerOpen(false));
 
   const handleDateChange = (date) => {
@@ -57,12 +59,18 @@ function Editor({ tasks, setTasks, setEditTask, editTask, setIsEditorOpen }) {
         <input
           className="text-field"
           value={taskName}
+          id="taskname"
+          name="taskname"
+          autoComplete="off"
           placeholder="Task name"
           onChange={(e) => setTaskName(e.target.value)}
         />
         <input
           className="description"
           value={description}
+          id="description"
+          name="description"
+          autoComplete="off"
           placeholder="Description (optional)"
           onChange={(e) => setDescription(e.target.value)}
         />

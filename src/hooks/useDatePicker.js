@@ -1,35 +1,31 @@
 import { useState, useEffect } from "react";
-import { format } from "date-fns";
+import { format, startOfDay } from "date-fns";
 
 const useDatePicker = (initialDate = null) => {
-  const [dateSelected, setDateSelected] = useState(initialDate);
+  const [dateSelected, setDateSelected] = useState(
+    initialDate ? new Date(initialDate) : null
+  );
   const [displayText, setDisplayText] = useState("");
 
   useEffect(() => {
     if (dateSelected) {
-      const today = new Date();
-      const yesterday = new Date(today);
-      const tomorrow = new Date(today);
+      const today = startOfDay(new Date());
+      const yesterday = startOfDay(
+        new Date(today.getTime() - 24 * 60 * 60 * 1000)
+      );
+      const tomorrow = startOfDay(
+        new Date(today.getTime() + 24 * 60 * 60 * 1000)
+      );
+      const selectedDate = startOfDay(new Date(dateSelected));
 
-      yesterday.setDate(today.getDate() - 1);
-      tomorrow.setDate(today.getDate() + 1);
-
-      const formatDate = (d) =>
-        new Date(d.getFullYear(), d.getMonth(), d.getDate());
-
-      const formattedDate = formatDate(dateSelected);
-      const formattedToday = formatDate(today);
-      const formattedYesterday = formatDate(yesterday);
-      const formattedTomorrow = formatDate(tomorrow);
-
-      if (formattedDate.getTime() === formattedToday.getTime()) {
+      if (selectedDate.getTime() === today.getTime()) {
         setDisplayText("Today");
-      } else if (formattedDate.getTime() === formattedYesterday.getTime()) {
+      } else if (selectedDate.getTime() === yesterday.getTime()) {
         setDisplayText("Yesterday");
-      } else if (formattedDate.getTime() === formattedTomorrow.getTime()) {
+      } else if (selectedDate.getTime() === tomorrow.getTime()) {
         setDisplayText("Tomorrow");
       } else {
-        setDisplayText(format(dateSelected, "dd MMM"));
+        setDisplayText(format(selectedDate, "dd MMM"));
       }
     } else {
       setDisplayText("");

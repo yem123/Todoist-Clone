@@ -1,11 +1,13 @@
+import useSidebar from "../context/useSidebar";
 import "../styles/sidebar.css";
 
-const Sidebar = ({
-  showItems,
-  setIsSidebarOpen,
-  isSidebarOpen,
-  setSidebarWidth,
-}) => {
+const Sidebar = () => {
+  const {
+    showItems,
+    isSidebarOpen,
+    setIsSidebarOpen,
+    setSidebarWidth,
+  } = useSidebar();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -96,7 +98,7 @@ const Sidebar = ({
         <section className="categories">
           <header className="categories-bar onhover">
             <div>Categories</div>
-            <div className={` ${showItems ? "show-me" : "hide-me"}`}>
+            <div className={` ${showItems ? "show" : "hide"}`}>
               <span className="material-symbols-outlined">add</span>
               <span className="material-symbols-outlined">expand_more</span>
             </div>

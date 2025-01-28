@@ -1,41 +1,18 @@
-import { useState, useEffect } from "react";
+import { useTaskContext } from "../context/useTaskContext";
 import Add from "./Add";
 import Editor from "./Editor";
-{
-  /*import Overdue from "./Overdue";*/
-}
 import Task from "./Task";
 import "../styles/today.css";
 import RelaxMode from "./RelaxMode";
+import useSidebar from "../context/useSidebar";
+const Today = () => {
 
-const Today = ({isWindowResized}) => {
-  const [isEditorOpen, setIsEditorOpen] = useState(false);
-  const [editTask, setEditTask] = useState(null);
+  const { isWindowResized } = useSidebar();
 
-  const getInitialTodos = () => {
-    try {
-      const savedTodos = localStorage.getItem("todos");
-      return savedTodos ? JSON.parse(savedTodos) : [];
-    } catch (error) {
-      console.error("Failed to load todos from localStorage:", error);
-      return [];
-    }
-  };
-
-  const [tasks, setTasks] = useState(getInitialTodos);
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(tasks));
-  }, [tasks]);
-
-  const handleEditTask = (task) => {
-    setEditTask(task);
-    setIsEditorOpen(true);
-  };
-
-  const handleAddTask = () => {
-    setIsEditorOpen(true);
-  };
+  const {
+    tasks,
+    isEditorOpen
+  } = useTaskContext();
 
   return (
     <main>
@@ -49,38 +26,28 @@ const Today = ({isWindowResized}) => {
                 {`${tasks.length} ${tasks.length === 1 ? "task" : "tasks"}`}
               </span>
             </div>
-          ) : (
-            ""
-          )}
+          ) : null}
         </header>
         {/*<section className="overdue-section">
           <Overdue setIsEditorOpen={setIsEditorOpen} />
         </section>
         */}
         <section>
-          <Task
-            tasks={tasks}
-            setTasks={setTasks}
-            handleEditTask={handleEditTask}
-          />
+          <Task />
         </section>
+
         {isEditorOpen && (
           <section className="editor-section">
-            <Editor
-              tasks={tasks}
-              setTasks={setTasks}
-              setEditTask={setEditTask}
-              editTask={editTask}
-              setIsEditorOpen={setIsEditorOpen}
-            />
+            <Editor />
           </section>
         )}
 
         {!isEditorOpen && (
           <section className="add-task-section">
-            <Add handleAddTask={handleAddTask} />
+            <Add />
           </section>
         )}
+
         {!isEditorOpen && tasks.length === 0 && (
           <section
             className="relax-mode"
