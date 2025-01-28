@@ -1,85 +1,33 @@
-import { useState } from "react";
-import "../styles/task.css";
-import { format } from "date-fns";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { useDnDSensors, handleDragReorder } from "../utils/taskUtils";
+import { useTaskContext } from "../context/useTaskContext";
+import TodoItem from "./TodoItem";
 
-const Task = ({ tasks, setTasks, handleEditTask }) => {
-  const [isEnter, setIsEnter] = useState(null);
-  const [radioHover, setRadioHover] = useState(null);
+const Task = () => {
+  const { tasks, setTasks } = useTaskContext();
+  const sensors = useDnDSensors();
 
-  const deleteTask = (index) => {
-    setTasks(tasks.filter((_, i) => i !== index));
+  const handleDragEnd = ({ active, over }) => {
+    setTasks((prevTasks) => handleDragReorder(active.id, over?.id, prevTasks));
   };
 
   return (
     <section className="task">
-      <ul>
-        {tasks.map((task, index) => (
-          <li
-            className="task-item"
-            key={index}
-            onMouseEnter={() => setIsEnter(index)}
-            onMouseLeave={() => setIsEnter(null)}
-          >
-            <div className="left-task">
-              <span className={isEnter == index ? "show-me" : "hide-me"}>
-                <span className="material-symbols-outlined">
-                  drag_indicator
-                </span>
-              </span>
-              <span
-                className="material-symbols-outlined"
-                onClick={() => deleteTask(index)}
-                onMouseEnter={() => setRadioHover(index)}
-                onMouseLeave={() => setRadioHover(null)}
-              >
-                {radioHover === index
-                  ? "check_circle"
-                  : "radio_button_unchecked"}
-              </span>
-              <div className="task-inputs">
-                <span className="item">{task.taskName}</span>
-                <p className="task-description">{task.description}</p>
-                {!task.formatedDate ||
-                task.formatedDate === "01 Jan" ||
-                task.formatedDate === format(new Date(), "dd MMM") ||
-                task.formatedDate === "Today" ? (
-                  ""
-                ) : (
-                  <div className="task-event">
-                    <span className="material-symbols-outlined">event</span>
-                    <span>{task.formatedDate}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="task-actions">
-              <div
-                className={`action-buttons ${
-                  isEnter == index ? "show-me" : "hide-me"
-                }`}
-              >
-                <div
-                  className="edit-task-btn"
-                  onClick={() => handleEditTask(task)}
-                >
-                  <span className="material-symbols-outlined">edit_square</span>
-                </div>
-                <div
-                  className="delete-task-btn"
-                  onClick={() => deleteTask(index)}
-                >
-                  <span className="material-symbols-outlined">delete</span>
-                </div>
-              </div>
-
-              <div className="task-category">
-                <span className="category-label">Inbox</span>
-                <span className="material-symbols-outlined">inbox</span>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
+          {tasks.map((task, index) => (
+            <TodoItem key={task.id} id={task.id} task={task} index={index} />
+          ))}
+        </SortableContext>
+      </DndContext>
     </section>
   );
 };
