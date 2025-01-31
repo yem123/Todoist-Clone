@@ -1,4 +1,3 @@
-import { CSS } from "@dnd-kit/utilities";
 import {
   useSensor,
   useSensors,
@@ -6,6 +5,12 @@ import {
   KeyboardSensor,
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
+export const getSortableStyle = (transform, transition) => ({
+  transform: transform ? CSS.Translate.toString(transform) : undefined,
+  transition,
+});
 
 export const deleteTask = (tasks, index) => tasks.filter((_, i) => i !== index);
 
@@ -25,14 +30,14 @@ export const handleDragReorder = (activeId, overId, tasks) => {
 
 export const useDnDSensors = () =>
   useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 200, 
+        tolerance: 5,
+      },
+    }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
-
-export const getSortableStyle = (transform, transition) => ({
-  transform: CSS.Translate.toString(transform),
-  transition,
-});
 
 export const saveTaskUtil = ({
   tasks,

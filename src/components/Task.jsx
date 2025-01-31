@@ -1,4 +1,5 @@
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import { useState } from "react";
+import { DndContext, closestCenter, DragOverlay } from "@dnd-kit/core";
 import {
   SortableContext,
   verticalListSortingStrategy,
@@ -11,8 +12,27 @@ const Task = () => {
   const { tasks, setTasks } = useTaskContext();
   const sensors = useDnDSensors();
 
+  const [overId, setOverId] = useState(null);
+  const [activeId, setactiveId] = useState(null);
+  const [draggingTask, setDraggingTask] = useState(null);
+
+  const handleDragStart = ({ active }) => {
+    setDraggingTask(tasks.find((task) => task.id === active.id));
+    setactiveId(active.id);
+  };
+
+  const handleDragMove = ({ over }) => {
+    if (over) {
+      setOverId(over.id);
+    }
+    
+  };
+
   const handleDragEnd = ({ active, over }) => {
     setTasks((prevTasks) => handleDragReorder(active.id, over?.id, prevTasks));
+    setactiveId(null);
+    setDraggingTask(null);
+    setOverId(null);
   };
 
   return (
@@ -20,13 +40,36 @@ const Task = () => {
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
+        onDragStart={handleDragStart}
+        onDragMove={handleDragMove}
         onDragEnd={handleDragEnd}
       >
-        <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
+        <SortableContext
+          items={tasks}
+          strategy={verticalListSortingStrategy}
+        >
           {tasks.map((task, index) => (
-            <TodoItem key={task.id} id={task.id} task={task} index={index} />
+            <div key={task.id}>
+              {overId === task.id && (
+                <div className="drag-placeholder" />
+              )}
+
+              {activeId !== task.id ? (
+              <div>
+                <TodoItem id={task.id} task={task} index={index} />
+              </div>
+              ) : null}
+            </div>
           ))}
         </SortableContext>
+
+        <DragOverlay>
+          {draggingTask ? (
+            <div className="drag-overlay">
+              <TodoItem id={draggingTask.id} task={draggingTask} />
+            </div>
+          ) : null}
+        </DragOverlay>
       </DndContext>
     </section>
   );

@@ -2,20 +2,21 @@ import { useState } from "react";
 import { useTaskContext } from "../context/useTaskContext";
 import useSidebar from "../context/useSidebar";
 import { useSortable } from "@dnd-kit/sortable";
-import { getSortableStyle } from "../utils/taskUtils";
 import "../styles/todoItem.css";
 
 const TodoItem = ({ id, index, task }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isRadioHovered, setIsRadioHovered] = useState(false);
 
-   const { isSidebarOpen, isWindowResized } = useSidebar();
+  const { isSidebarOpen, isWindowResized } = useSidebar();
 
   const { setEditTask, setIsEditorOpen, deleteTask } = useTaskContext();
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+  } = useSortable({ id });
 
-  const style = getSortableStyle(transform, transition);
 
   const onDeleteTask = () => deleteTask(index);
 
@@ -25,7 +26,12 @@ const TodoItem = ({ id, index, task }) => {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes}>
+    <div
+      ref={setNodeRef}
+      {...listeners}
+      {...attributes}
+      className="task"
+    >
       <li
         className="task-item"
         onMouseEnter={() => setIsHovered(true)}
@@ -35,15 +41,13 @@ const TodoItem = ({ id, index, task }) => {
         }}
       >
         <div className="left-task">
-          <span
-            className={`drag-handle ${isHovered ? "show" : "hide"}`}
-            {...listeners}
-          >
+          <span className={`drag-handle ${isHovered ? "show" : "hide"}`}>
             <span className="material-symbols-outlined">drag_indicator</span>
           </span>
 
           <div
-            onClick={onDeleteTask}
+            className="radio-button"
+            onMouseUp={onDeleteTask}
             onMouseEnter={() => setIsRadioHovered(true)}
             onMouseLeave={() => setIsRadioHovered(false)}
           >
@@ -67,13 +71,13 @@ const TodoItem = ({ id, index, task }) => {
           <div className={`action-buttons ${isHovered ? "show" : "hide"}`}>
             <span
               className="edit-task-btn material-symbols-outlined"
-              onClick={onEditTask}
+              onMouseUp={onEditTask}
             >
               edit_square
             </span>
             <span
               className="delete-task-btn material-symbols-outlined"
-              onClick={onDeleteTask}
+              onMouseUp={onDeleteTask}
             >
               delete
             </span>

@@ -1,4 +1,6 @@
-.task ul {
+.task {
+    display: flex;
+    flex-direction: column;
     list-style: none;
 }
 
@@ -6,8 +8,9 @@
     position: relative;
     display: flex;
     justify-content: space-between;
-    align-items: start;
     padding: 10px 0;
+    cursor: pointer;
+
 }
 
 .task-item::after {
@@ -15,40 +18,94 @@
     position: absolute;
     right: 0;
     width: 97%;
-    height: 1px;
+    height: 2px;
     background-color: rgba(133, 133, 133, 0.179);
     bottom: 0;
 }
 
+.drag-overlay{
+    background-color: gray;
+        box-shadow: 10px 10px 10px rgba(154, 154, 154, 0.3);
+        border-radius: 20px;
+        transition: 150 cubic-bezier(0.25, 1, 0.5, 1);
+        z-index: 30000;
+}
+
+.drag-overlay .drag-handle {
+    display: none;
+}
+
+.drag-overlay .action-buttons {
+    visibility: hidden;
+}
+
+.drag-overlay .radio-button{
+    padding-left: 8px;
+}
+
+.drag-placeholder {
+    position: relative;
+    justify-self: right;
+    width: 97%;
+    background-color: #ececec;
+    border-top: 2px solid rgb(145, 5, 5);
+    border-radius: 0 0 8px 8px;
+    min-height: 60px;
+    z-index: 100;
+}
+
+.drag-placeholder::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    width: 5px;
+    height: 5px;
+    border: 2px solid rgb(145, 5, 5);
+    border-radius: 50%;
+    left: -9px;
+}
+
 .left-task {
     display: flex;
-    align-items: start;
+    align-self: self-start;
     justify-content: start;
     gap: 5px;
 
 }
 
 .drag-handle {
-    cursor:move;
+    cursor: move;
+}
+
+.drag-handle span {
+    align-self: self-start;
+    font-weight: bolder;
+    color: black;
+}
+
+.radio-button>span:first-child {
+    align-self: self-start;
+    font-size: 20px;
 }
 
 .task-inputs {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    justify-content: start;
+    align-self: center;
     font-size: 14px;
-    gap: 10px;
+    gap: 7px;
 }
 
 .task-description {
     font-size: 12px;
     color: rgba(68, 68, 68, 0.553);
+    flex: 1;
 }
 
 .task-event {
     display: flex;
     align-items: end;
-    justify-content: start;
     gap: 5px;
 }
 
@@ -61,16 +118,26 @@
     font-size: 13px;
 }
 
+.drag-area {
+    display: flex;
+    align-self: stretch;
+    flex: 1;
+    cursor: move;
+    margin: 0 5px;
+}
+
 .task-actions {
     display: flex;
     flex-direction: column;
-    align-self: end;
+    align-items: center;
+    align-self: stretch;
+    justify-content: space-between;
     gap: 10px;
 }
 
 .action-buttons {
     display: flex;
-    align-items: end;
+    align-items: start;
     gap: 10px;
 }
 
@@ -81,11 +148,11 @@
 
 .task-category {
     display: flex;
+    align-items: flex-end;
     gap: 5px;
     cursor: pointer;
 }
 
 .task-category span {
     font-size: 12px;
-    align-self: self-end;
 }
