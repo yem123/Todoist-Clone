@@ -5,7 +5,7 @@ import Sidebar from "./src/components/Sidebar";
 import ViewButton from "./src/components/ViewButton";
 import ViewBar from "./src/components/ViewBar";
 import useClickOutside from "./src/hooks/useClickOutside";
-import useSidebar from "./src/context/useSidebar";
+import useSidebar from "./src/context/useSidebarContext";
 import { Resizable } from "re-resizable";
 
 function App() {
@@ -48,8 +48,7 @@ function App() {
           onMouseEnter={() => setShowItems(true)}
           onMouseLeave={() => setShowItems(false)}
         >
-          <Sidebar
-          />
+          <Sidebar />
         </section>
       </Resizable>
 
@@ -59,11 +58,11 @@ function App() {
           backgroundColor: isSidebarOpen && isWindowResized ? "gray" : "white",
           pointerEvents: isSidebarOpen && isWindowResized ? "none" : "auto",
           userSelect: isSidebarOpen && isWindowResized ? "none" : "auto",
-          marginLeft: !isWindowResized
+          left: !isWindowResized
             ? isSidebarOpen
-              ? `${-0.3 * sidebarWidth}px`
-              : `${-0.01 * sidebarWidth}px`
-            : "-100px",
+              ? `${0.3 * sidebarWidth}px`
+              : `${sidebarWidth}px`
+            : 0,
         }}
       >
         <section

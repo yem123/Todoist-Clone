@@ -13,12 +13,12 @@
 
 .overdue-header::after {
     content: '';
-    position: absolute;
-    right: 0;
-    width: 97%;
-    height: 1px;
-    background-color: rgba(116, 116, 116, 0.1);
-    bottom: 0;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 97%;
+        height: 1px;
+        background-color: rgba(211, 211, 211, 0.408);
 }
 
 .overdue-toggle {
@@ -29,18 +29,11 @@
 .overdue-label {
     font-size: 15px;
     font-weight: bolder;
+    margin-left: 5px;
 }
 
 .reschedule-btn {
     font-size: 13px;
     color: #f44336;
     font-weight: 600;
-}
-.today-tasks-date {
-    margin-left: 25px;
-    margin-top: 40px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid rgb(237, 237, 237);
-    font-size: 15px;
-    font-weight: bolder;
 }

@@ -1,3 +1,8 @@
+.today-contents{
+    display: flex;
+    flex-direction: column;
+}
+
 .today-contents>header {
     font-size: 26px;
     margin-left: 30px;
@@ -19,12 +24,19 @@
 }
 
 .overdue-section {
-    margin-top: 30px;
-    padding-bottom: 10px;
+    margin-bottom: 40px;
+}
+
+.today-tasks-date {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.408);
+    font-size: 15px;
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
 }
 
 .today-tasks-section {
-    justify-self: center;
     margin-top: 30px;
 }
 

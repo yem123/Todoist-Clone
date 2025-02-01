@@ -5,10 +5,8 @@ import {
   useEffect,
 } from "react";
 
-// Create Context
 const SidebarContext = createContext();
 
-// Context Provider Component
 export const SidebarProvider = ({ children }) => {
   const sidebarRef = useRef(null);
   const [showItems, setShowItems] = useState(false);

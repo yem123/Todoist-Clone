@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useTaskContext } from "../context/useTaskContext";
-import useSidebar from "../context/useSidebar";
+import useTaskContext from "../context/useTaskContext";
+import useSidebarContext from "../context/useSidebarContext";
 import { useSortable } from "@dnd-kit/sortable";
 import "../styles/todoItem.css";
 
@@ -8,7 +8,7 @@ const TodoItem = ({ id, index, task }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isRadioHovered, setIsRadioHovered] = useState(false);
 
-  const { isSidebarOpen, isWindowResized } = useSidebar();
+  const { isSidebarOpen, isWindowResized } = useSidebarContext();
 
   const { setEditTask, setIsEditorOpen, deleteTask } = useTaskContext();
   const {

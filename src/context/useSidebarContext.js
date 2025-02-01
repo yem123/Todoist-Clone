@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import SidebarContext from "./SidebarProvider";
+import SidebarContext from "./SidebarContext.jsx";
 
-const useSidebar = () => {
+const useSidebarContext = () => {
   const context = useContext(SidebarContext);
   if (!context) {
     throw new Error("useSidebar must be used within a SidebarProvider");
@@ -9,4 +9,4 @@ const useSidebar = () => {
   return context;
 };
 
-export default useSidebar;
+export default useSidebarContext;

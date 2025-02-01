@@ -1,4 +1,4 @@
-import useSidebar from "../context/useSidebar";
+import useSidebar from "../context/useSidebarContext";
 import "../styles/sidebar.css";
 
 const Sidebar = () => {

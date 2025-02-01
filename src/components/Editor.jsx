@@ -3,7 +3,7 @@ import useTaskForm from "../hooks/useTaskForm";
 import useDatePicker from "../hooks/useDatePicker";
 import useClickOutside from "../hooks/useClickOutside";
 import { saveTaskUtil } from "../utils/taskUtils";
-import { useTaskContext } from "../context/useTaskContext";
+import useTaskContext from "../context/useTaskContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/editor.css";
@@ -106,7 +106,7 @@ function Editor( ) {
             <DatePicker
               selected={dateSelected}
               onChange={handleDateChange}
-              minDate={new Date()}
+              // minDate={new Date()}
               inline
             />
           </div>

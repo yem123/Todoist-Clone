@@ -1,39 +1,52 @@
-import { useTaskContext } from "../context/useTaskContext";
+import useTaskContext from "../context/useTaskContext";
+import useSidebarContext from "../context/useSidebarContext";
 import Add from "./Add";
+import Overdue from "./Overdue";
 import Editor from "./Editor";
-import Task from "./Task";
+import { TodayTasks } from "./TaskFilters";
 import "../styles/today.css";
 import RelaxMode from "./RelaxMode";
-import useSidebar from "../context/useSidebar";
+import { format, isPast, isToday } from "date-fns";
+
 const Today = () => {
+  const { isWindowResized } = useSidebarContext();
+  const { tasks, isEditorOpen } = useTaskContext();
 
-  const { isWindowResized } = useSidebar();
+  const todayTasks = tasks.filter((task) =>
+    isToday(new Date(task.dateSelected))
+  );
+  const todayFormatted = format(new Date(), "dd MMM ‧ 'Today' ‧ EEEE");
 
-  const {
-    tasks,
-    isEditorOpen
-  } = useTaskContext();
+  const overdueTasks = tasks.filter(
+    (task) =>
+      isPast(new Date(task.dateSelected)) && !isToday(new Date(task.dateSelected))
+  );
+
+  const totalTasks = todayTasks.length + overdueTasks.length;
 
   return (
-    <main>
-      <section className="today-contents">
+      <div className="today-contents">
         <header>
           <h1>Today</h1>
-          {tasks.length > 0 ? (
+          {todayTasks.length > 0 ? (
             <div className="total-tasks">
               <span className="material-icons-outlined">check_circle</span>
               <span>
-                {`${tasks.length} ${tasks.length === 1 ? "task" : "tasks"}`}
+                {`${totalTasks} ${totalTasks === 1 ? "task" : "tasks"}`}
               </span>
             </div>
           ) : null}
         </header>
-        {/*<section className="overdue-section">
-          <Overdue setIsEditorOpen={setIsEditorOpen} />
-        </section>
-        */}
+        {overdueTasks.length > 0 && (
+            <section className="overdue-section">
+              <Overdue />
+            </section>
+             )}
+        {overdueTasks.length > 0 && (
+          <span className="today-tasks-date">{todayFormatted}</span>
+        )}
         <section>
-          <Task />
+          <TodayTasks />
         </section>
 
         {isEditorOpen && (
@@ -58,8 +71,7 @@ const Today = () => {
             <RelaxMode />
           </section>
         )}
-      </section>
-    </main>
+      </div>
   );
 };
 

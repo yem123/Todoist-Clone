@@ -8,8 +8,8 @@ import { useDnDSensors, handleDragReorder } from "../utils/taskUtils";
 import { useTaskContext } from "../context/useTaskContext";
 import TodoItem from "./TodoItem";
 
-const Task = () => {
-  const { tasks, setTasks } = useTaskContext();
+const Task = ({tasks}) => {
+  const { setTasks } = useTaskContext();
   const sensors = useDnDSensors();
 
   const [overId, setOverId] = useState(null);
@@ -44,20 +44,15 @@ const Task = () => {
         onDragMove={handleDragMove}
         onDragEnd={handleDragEnd}
       >
-        <SortableContext
-          items={tasks}
-          strategy={verticalListSortingStrategy}
-        >
+        <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
           {tasks.map((task, index) => (
             <div key={task.id}>
-              {overId === task.id && (
-                <div className="drag-placeholder" />
-              )}
+              {overId === task.id && <div className="drag-placeholder" />}
 
               {activeId !== task.id ? (
-              <div>
-                <TodoItem id={task.id} task={task} index={index} />
-              </div>
+                <div>
+                  <TodoItem id={task.id} task={task} index={index} />
+                </div>
               ) : null}
             </div>
           ))}

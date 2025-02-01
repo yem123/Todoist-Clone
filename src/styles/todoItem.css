@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     list-style: none;
+    width: 100%;
 }
 
 .task-item {
@@ -10,22 +11,22 @@
     justify-content: space-between;
     padding: 10px 0;
     cursor: pointer;
-
 }
 
 .task-item::after {
     content: '';
     position: absolute;
     right: 0;
-    width: 97%;
-    height: 2px;
-    background-color: rgba(133, 133, 133, 0.179);
     bottom: 0;
+    width: 97%;
+    height: 0.3px;
+    background-color: rgba(211, 211, 211, 0.408);
+    
 }
 
 .drag-overlay{
-    background-color: gray;
-        box-shadow: 10px 10px 10px rgba(154, 154, 154, 0.3);
+    background-color: rgb(208, 208, 208);
+        box-shadow: 10px 10px 10px rgba(186, 186, 186, 0.3);
         border-radius: 20px;
         transition: 150 cubic-bezier(0.25, 1, 0.5, 1);
         z-index: 30000;

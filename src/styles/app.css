@@ -15,8 +15,7 @@
 
 .main-content-section {
   flex: 1;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   
 }
 
