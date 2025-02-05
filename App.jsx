@@ -1,17 +1,40 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./src/styles/app.css";
 import MainContent from "./src/components/MainContent";
 import Sidebar from "./src/components/Sidebar";
 import ViewButton from "./src/components/ViewButton";
 import ViewBar from "./src/components/ViewBar";
 import useClickOutside from "./src/hooks/useClickOutside";
-import useSidebar from "./src/context/useSidebarContext";
+import { useSidebarContext } from "./src/context/SidebarContext";
 import { Resizable } from "re-resizable";
 
 function App() {
   const [isViewBarVisible, setIsViewBarVisible] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
   const viewButtonRef = useRef(null);
   const viewBarRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (contentRef.current.scrollTop > 15) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    const content = contentRef.current;
+    if (content) {
+      content.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (content) {
+        content.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
  
     const {
       sidebarRef,
@@ -19,9 +42,8 @@ function App() {
       isSidebarOpen,
       setIsSidebarOpen,
       isWindowResized,
-      sidebarWidth,
       resizerStyles,
-    } = useSidebar();
+    } = useSidebarContext();
 
   useClickOutside([sidebarRef], () => {
     if (isSidebarOpen && isWindowResized) {
@@ -54,15 +76,20 @@ function App() {
 
       <section
         className="main-content-section"
+        ref={contentRef}
         style={{
           backgroundColor: isSidebarOpen && isWindowResized ? "gray" : "white",
           pointerEvents: isSidebarOpen && isWindowResized ? "none" : "auto",
+          opacity: isSidebarOpen && isWindowResized ? 0.5 : 1,
           userSelect: isSidebarOpen && isWindowResized ? "none" : "auto",
-          left: !isWindowResized
-            ? isSidebarOpen
-              ? `${0.3 * sidebarWidth}px`
-              : `${sidebarWidth}px`
-            : 0,
+          marginLeft: isWindowResized
+            ? !isSidebarOpen
+              ? 0
+              : "-200px"
+            : isSidebarOpen
+            ? 0
+            : "-100px",
+          transition: "margin-left 0.2s ease-in-out",
         }}
       >
         <section
@@ -78,7 +105,7 @@ function App() {
             <ViewBar />
           </section>
         )}
-        <MainContent />
+        <MainContent isSticky={isSticky} />
       </section>
     </div>
   );

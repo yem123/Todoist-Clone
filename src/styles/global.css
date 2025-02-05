@@ -33,13 +33,13 @@ body {
 }
 
 .material-symbols-outlined {
-    font-size: 23px;
+    font-size: 22px;
     color: rgba(71, 71, 71, 0.773);
     font-variation-settings:
         'FILL' 0,
-        'wght' 200,
-        'GRAD' 100,
-        'opsz' 48
+        'wght' 100,
+        'GRAD' 200,
+        'opsz' 20
 }
 
 .small-icons {
@@ -50,7 +50,7 @@ body {
 
 }
 
-[data-tooltip]:hover::after {
+/* [data-tooltip]:hover::after {
     content: attr(data-tooltip);
     position: absolute;
     background-color: black;
@@ -65,7 +65,7 @@ body {
     opacity: 1;
     font-weight: 600;
     transition: opacity 1s ease-in-out, top 1s ease-in-out;
-}
+} */
 
 [data-tooltip]::after {
     content: "";
@@ -73,4 +73,8 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 1s ease-in-out, top 1s ease-in-out;
+}
+
+body.dragging {
+    cursor: pointer !important;
 }

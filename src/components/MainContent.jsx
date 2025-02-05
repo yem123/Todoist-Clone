@@ -1,14 +1,14 @@
 import "../styles/mainContent.css";
 import Today from "./Today";
 
-const MainContent = () => {
+const MainContent = ({isSticky}) => {
 
   return (
-    <div className="main-contents">
+    < >
       <section className="today-section no-select">
-        <Today />
+        <Today isSticky={ isSticky } />
       </section>
-    </div>
+    </>
   );
 };
 

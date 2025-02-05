@@ -1,4 +1,9 @@
-import { createContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 
 const TaskContext = createContext();
 
@@ -16,6 +21,9 @@ export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState(() => getInitialTodos());
   const [editTask, setEditTask] = useState(null);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [clickId, setClickId] = useState(null);
+  const [isHovered, setIsHovered] = useState(null);
+  const [isRadioHovered, setIsRadioHovered] = useState(null);
 
   useEffect(() => {
     try {
@@ -25,8 +33,8 @@ export const TaskProvider = ({ children }) => {
     }
   }, [tasks]);
 
-  const deleteTask = (index) =>
-    setTasks((prev) => prev.filter((_, i) => i !== index));
+  const deleteTask = (id) =>
+    setTasks((prev) => prev.filter((task) => task.id !== id));
 
   const saveTask = (newTask) => setTasks((prev) => [...prev, newTask]);
 
@@ -37,7 +45,13 @@ export const TaskProvider = ({ children }) => {
   };
 
   const handleAddTask = () => {
+    setClickId(null);
     setIsEditorOpen(true);
+  };
+
+  const handleEditTask = (task, id) => {
+    setClickId(task.id)
+    setEditTask(tasks.find((t) => t.id === id));
   };
 
   return (
@@ -53,6 +67,13 @@ export const TaskProvider = ({ children }) => {
         saveTask,
         updateTask,
         handleAddTask,
+        handleEditTask,
+        setClickId,
+        clickId,
+        isHovered,
+        setIsHovered,
+        isRadioHovered,
+        setIsRadioHovered,
       }}
     >
       {children}
@@ -60,4 +81,7 @@ export const TaskProvider = ({ children }) => {
   );
 };
 
+export const useTaskContext = () => {
+  return useContext(TaskContext);
+};
 export default TaskContext;

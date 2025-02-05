@@ -1,43 +1,45 @@
 import { useState, useEffect } from "react";
-import { format, startOfDay } from "date-fns";
+import { format, isToday, isTomorrow, isYesterday, isThisWeek, isFuture } from "date-fns";
+
+export const getFormattedDate = (date) => {
+  if (!date) return "";
+
+  if (isToday(date)) return "Today";
+  if (isTomorrow(date)) return "Tomorrow";
+  if (isYesterday(date)) return "Yesterday";
+  if (isThisWeek(date, { weekStartsOn: 1 }) && isFuture(date)) return format(date, "EEEE");
+
+  return format(date, "d MMM");
+};
 
 const useDatePicker = (initialDate = null) => {
   const [dateSelected, setDateSelected] = useState(
     initialDate ? new Date(initialDate) : null
   );
-  const [displayText, setDisplayText] = useState("");
+  const [displayDate, setDisplayDate] = useState("");
 
   useEffect(() => {
     if (dateSelected) {
-      const today = startOfDay(new Date());
-      const yesterday = startOfDay(
-        new Date(today.getTime() - 24 * 60 * 60 * 1000)
-      );
-      const tomorrow = startOfDay(
-        new Date(today.getTime() + 24 * 60 * 60 * 1000)
-      );
-      const selectedDate = startOfDay(new Date(dateSelected));
-
-      if (selectedDate.getTime() === today.getTime()) {
-        setDisplayText("Today");
-      } else if (selectedDate.getTime() === yesterday.getTime()) {
-        setDisplayText("Yesterday");
-      } else if (selectedDate.getTime() === tomorrow.getTime()) {
-        setDisplayText("Tomorrow");
-      } else {
-        setDisplayText(format(selectedDate, "dd MMM"));
-      }
+      setDisplayDate(getFormattedDate(dateSelected));
     } else {
-      setDisplayText("");
+      setDisplayDate("");
     }
+
+    const interval = setInterval(() => {
+      if (dateSelected) {
+        setDisplayDate(getFormattedDate(dateSelected));
+      }
+    }, 60000);
+
+    return () => clearInterval(interval);
   }, [dateSelected]);
 
   const resetDate = () => {
     setDateSelected(null);
-    setDisplayText("");
+    setDisplayDate("");
   };
 
-  return { dateSelected, displayText, setDateSelected, resetDate };
+  return { dateSelected, displayDate, setDateSelected, resetDate };
 };
 
 export default useDatePicker;

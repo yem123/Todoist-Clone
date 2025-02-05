@@ -1,5 +1,6 @@
 import {
   createContext,
+  useContext,
   useState,
   useRef,
   useEffect,
@@ -79,6 +80,10 @@ export const SidebarProvider = ({ children }) => {
       {children}
     </SidebarContext.Provider>
   );
+};
+
+export const useSidebarContext = () => {
+  return useContext(SidebarContext);
 };
 
 export default SidebarContext;

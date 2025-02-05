@@ -1,32 +1,26 @@
-import { useState, useRef } from "react";
 import useTaskForm from "../hooks/useTaskForm";
 import useDatePicker from "../hooks/useDatePicker";
-import useClickOutside from "../hooks/useClickOutside";
 import { saveTaskUtil } from "../utils/taskUtils";
-import useTaskContext from "../context/useTaskContext";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import "../styles/editor.css";
+import { useTaskContext } from "../context/TaskContext";
+import DateSelector from "./DateSelector";
 import "../styles/customDate.css";
+import "../styles/editor.css";
 
-function Editor( ) {
-  const { tasks, setTasks, editTask, setEditTask, setIsEditorOpen } = useTaskContext();
-
-  const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const dateButtonRef = useRef(null);
-  const datePickerRef = useRef(null);
+function Editor() {
+  const {
+    tasks,
+    setTasks,
+    editTask,
+    setEditTask,
+    setIsEditorOpen,
+    setClickId,
+    setIsHovered
+  } = useTaskContext();
 
   const { taskName, setTaskName, description, setDescription, resetForm } =
     useTaskForm(editTask);
-  const { dateSelected, displayText, setDateSelected, resetDate } =
+  const { dateSelected, displayDate, setDateSelected, resetDate } =
     useDatePicker(editTask?.dateSelected || null);
-
-  useClickOutside([dateButtonRef, datePickerRef], () => setIsPickerOpen(false));
-
-  const handleDateChange = (date) => {
-    setDateSelected(date);
-    setIsPickerOpen(false);
-  };
 
   const saveTask = () => {
     saveTaskUtil({
@@ -35,23 +29,22 @@ function Editor( ) {
       taskName,
       description,
       dateSelected,
-      displayText,
+      displayDate,
       editTask,
     });
     resetForm();
     resetDate();
     setEditTask(null);
-    setIsEditorOpen(false);
+    setClickId(null);
   };
 
   const cancelEditor = () => {
     resetForm();
-    resetDate();
     setEditTask(null);
     setIsEditorOpen(false);
+    setClickId(null);
+    setIsHovered(false);
   };
-
-  const isDisabled = taskName.trim() === "";
 
   return (
     <section className="editor-container">
@@ -59,60 +52,28 @@ function Editor( ) {
         <input
           className="text-field"
           value={taskName}
-          id="taskname"
-          name="taskname"
-          autoComplete="off"
           placeholder="Task name"
           onChange={(e) => setTaskName(e.target.value)}
         />
         <input
           className="description"
           value={description}
-          id="description"
-          name="description"
-          autoComplete="off"
           placeholder="Description (optional)"
           onChange={(e) => setDescription(e.target.value)}
         />
         <div className="date-actions onhover">
-          <div
-            className="date-selector"
-            ref={dateButtonRef}
-            onClick={() => setIsPickerOpen((prev) => !prev)}
-          >
-            <span
-              className={`material-icons-outlined small-icons ${
-                dateSelected ? "selected-date" : ""
-              }`}
-            >
-              event
-            </span>
-            {!(dateSelected || displayText) ? (
-              <span>Date</span>
-            ) : (
-              <span className="selected-date">{displayText}</span>
-            )}
+        <DateSelector
+          dateSelected={dateSelected}
+          setDateSelected={setDateSelected}
+          displayDate={displayDate}
+          />
+          {dateSelected && (
+                  <div className="cancel" onClick={() => setDateSelected(null)}>
+                    <span className="material-symbols-outlined small-icons">close</span>
+                  </div>
+                )}
           </div>
-          {(dateSelected || displayText) && (
-            <div className="cancel" onClick={resetDate}>
-              <span className="material-symbols-outlined small-icons">
-                close
-              </span>
-            </div>
-          )}
-        </div>
-        {isPickerOpen && (
-          <div className="react-date-picker" ref={datePickerRef}>
-            <DatePicker
-              selected={dateSelected}
-              onChange={handleDateChange}
-              // minDate={new Date()}
-              inline
-            />
-          </div>
-        )}
       </div>
-
       <div className="editor-actions">
         <div className="editor-task-category onhover">
           <span className="material-icons-outlined small-icons">inbox</span>
@@ -122,16 +83,16 @@ function Editor( ) {
           </span>
         </div>
 
-        <div className="action-buttons">
+        <div className="editor-actions">
           <button className="cancel" onClick={cancelEditor}>
             Cancel
           </button>
           <button
-            className={isDisabled ? "disabled" : "save"}
-            disabled={isDisabled}
+            className={taskName.trim() === "" ? "disabled" : "save"}
+            disabled={taskName.trim() === ""}
             onClick={saveTask}
           >
-            Add task
+            Save
           </button>
         </div>
       </div>

@@ -3,6 +3,7 @@
   display: flex;
   width: 100vw;
   height: 100vh;
+  min-width: 300px;
   overflow: hidden;
 }
 
@@ -16,7 +17,7 @@
 .main-content-section {
   flex: 1;
   overflow-y: auto;
-  
+  scrollbar-width:thin;
 }
 
 .view-button-section {

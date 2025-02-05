@@ -1,5 +1,5 @@
-import useTaskContext from "../context/useTaskContext";
-import useSidebarContext from "../context/useSidebarContext";
+import { useTaskContext } from "../context/TaskContext";
+import { useSidebarContext } from "../context/SidebarContext";
 import Add from "./Add";
 import Overdue from "./Overdue";
 import Editor from "./Editor";
@@ -8,27 +8,53 @@ import "../styles/today.css";
 import RelaxMode from "./RelaxMode";
 import { format, isPast, isToday } from "date-fns";
 
-const Today = () => {
+const Today = ({isSticky}) => {
   const { isWindowResized } = useSidebarContext();
   const { tasks, isEditorOpen } = useTaskContext();
+
 
   const todayTasks = tasks.filter((task) =>
     isToday(new Date(task.dateSelected))
   );
-  const todayFormatted = format(new Date(), "dd MMM ‧ 'Today' ‧ EEEE");
+  const todayFormatted = format(new Date(), "d MMM ‧ 'Today' ‧ EEEE");
 
   const overdueTasks = tasks.filter(
     (task) =>
-      isPast(new Date(task.dateSelected)) && !isToday(new Date(task.dateSelected))
+      isPast(new Date(task.dateSelected)) &&
+      !isToday(new Date(task.dateSelected))
   );
 
   const totalTasks = todayTasks.length + overdueTasks.length;
 
   return (
+    <>
+      <header className="sticky-header" style={{
+            borderBottom: isSticky ? "1px solid rgba(211, 211, 211, 0.408)" : "",
+          }}>
+        <span
+          style={{
+            opacity: isSticky ? 1 : 0,
+            transition: "opacity 0.2s ease-in-out",
+          }}
+        >
+          <div className="title">Today</div>
+          {totalTasks > 0 ? (
+            <div className="total-tasks">
+              {`${totalTasks} ${totalTasks === 1 ? "task" : "tasks"}`}
+            </div>
+          ) : null}
+        </span>
+      </header>
       <div className="today-contents">
-        <header>
-          <h1>Today</h1>
-          {todayTasks.length > 0 ? (
+        <div
+          className="header"
+          style={{
+            opacity: isSticky ? 0 : 1,
+            transition: "all 0.3s ease-in-out",
+          }}
+        >
+          <h1 className="title">Today</h1>
+          {totalTasks > 0 ? (
             <div className="total-tasks">
               <span className="material-icons-outlined">check_circle</span>
               <span>
@@ -36,12 +62,12 @@ const Today = () => {
               </span>
             </div>
           ) : null}
-        </header>
+        </div>
         {overdueTasks.length > 0 && (
-            <section className="overdue-section">
-              <Overdue />
-            </section>
-             )}
+          <section className="overdue-section">
+            <Overdue />
+          </section>
+        )}
         {overdueTasks.length > 0 && (
           <span className="today-tasks-date">{todayFormatted}</span>
         )}
@@ -72,6 +98,7 @@ const Today = () => {
           </section>
         )}
       </div>
+    </>
   );
 };
 

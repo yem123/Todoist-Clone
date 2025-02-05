@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import SidebarContext from "./SidebarContext.jsx";
+import SidebarContext from "../src/context/SidebarContext.jsx";
 
 const useSidebarContext = () => {
   const context = useContext(SidebarContext);

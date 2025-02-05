@@ -1,43 +1,48 @@
 import {
-  useSensor,
   useSensors,
+  useSensor,
   PointerSensor,
   KeyboardSensor,
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 
-export const getSortableStyle = (transform, transition) => ({
-  transform: transform ? CSS.Translate.toString(transform) : undefined,
-  transition,
-});
-
-export const deleteTask = (tasks, index) => tasks.filter((_, i) => i !== index);
-
-export const handleEditTask = (task, setEditTask, setIsEditorOpen) => {
-  setEditTask(task);
-  setIsEditorOpen(true);
-};
+/**
+ * Handles reordering of tasks when a drag event ends.
+ * @param {string} activeId - The ID of the dragged item.
+ * @param {string} overId - The ID of the target drop position.
+ * @param {Array} tasks - The list of tasks.
+ * @returns {Array} - The reordered task array.
+ */
 
 export const handleDragReorder = (activeId, overId, tasks) => {
+  if (!tasks || !Array.isArray(tasks) || tasks.length === 0) return tasks;
   if (!overId || activeId === overId) return tasks;
 
   const oldIndex = tasks.findIndex((task) => task.id === activeId);
   const newIndex = tasks.findIndex((task) => task.id === overId);
 
+  if (oldIndex === -1 || newIndex === -1) return tasks;
+
   return arrayMove(tasks, oldIndex, newIndex);
 };
 
-export const useDnDSensors = () =>
-  useSensors(
+/**
+ * Creates drag-and-drop sensors with pointer and keyboard support.
+ * @returns {Array} Sensors for DndContext.
+ */
+export const useDnDSensors = () => {
+  return useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        delay: 200, 
+        delay: 200,
         tolerance: 5,
       },
     }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
   );
+};
 
 export const saveTaskUtil = ({
   tasks,
@@ -45,7 +50,7 @@ export const saveTaskUtil = ({
   taskName,
   description,
   dateSelected,
-  displayText,
+  displayDate,
   editTask,
 }) => {
   const updatedTasks = [...tasks];
@@ -57,7 +62,7 @@ export const saveTaskUtil = ({
       taskName: taskName.trim(),
       description: description.trim(),
       dateSelected,
-      formatedDate: displayText,
+      displayDate,
     };
   } else {
     updatedTasks.push({
@@ -65,7 +70,7 @@ export const saveTaskUtil = ({
       taskName: taskName.trim(),
       description: description.trim(),
       dateSelected,
-      formatedDate: displayText,
+      displayDate,
     });
   }
 

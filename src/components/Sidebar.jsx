@@ -1,4 +1,4 @@
-import useSidebar from "../context/useSidebarContext";
+import { useSidebarContext } from "../context/SidebarContext";
 import "../styles/sidebar.css";
 
 const Sidebar = () => {
@@ -7,7 +7,7 @@ const Sidebar = () => {
     isSidebarOpen,
     setIsSidebarOpen,
     setSidebarWidth,
-  } = useSidebar();
+  } = useSidebarContext();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
