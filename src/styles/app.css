@@ -31,7 +31,7 @@
   top: 50px;
   right: 20px;
   width: 290px;
-  z-index: 30000;
+  z-index: 300000;
 }
 
 @keyframes sidebarSlideOut {

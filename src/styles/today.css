@@ -4,8 +4,7 @@
     top: 0;
     box-sizing: border-box;
     padding: 10px 0;
-    background-color: white;
-    z-index: 200000;
+    z-index: 20000;
 }
 
 .sticky-header .title {
@@ -21,16 +20,15 @@
 }
 
 .today-contents{
-    width: 75%;
+    width: 100%;
         justify-self: center;
         max-width: 850px;
     display: flex;
     flex-direction: column;
-    padding: 5px 0 150px 0;
+    padding: 5px 0 100px 0;
 }
 
 .today-contents .header {
-    background-color: white;
     font-size: 24px;
     padding-left: 30px;
     font-weight: 600;

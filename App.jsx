@@ -82,14 +82,15 @@ function App() {
           pointerEvents: isSidebarOpen && isWindowResized ? "none" : "auto",
           opacity: isSidebarOpen && isWindowResized ? 0.5 : 1,
           userSelect: isSidebarOpen && isWindowResized ? "none" : "auto",
-          marginLeft: isWindowResized
-            ? !isSidebarOpen
-              ? 0
-              : "-200px"
+          cursor: isSidebarOpen && isWindowResized ? "not-allowed" : "default",
+          left: isWindowResized
+            ? isSidebarOpen
+              ? "-200px"
+              : "-100px"
             : isSidebarOpen
             ? 0
             : "-100px",
-          transition: "margin-left 0.2s ease-in-out",
+          transition: "left 0.2s ease-in-out",
         }}
       >
         <section

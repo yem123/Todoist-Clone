@@ -9,6 +9,11 @@ body {
     font-family: "Lato", serif;
     color: rgba(0, 0, 0, 0.773);
     font-size: 14px;
+    background-color: white;
+}
+
+* {
+  background-color: inherit;
 }
 
 .no-select {
