@@ -5,12 +5,13 @@ import { useSortable } from "@dnd-kit/sortable";
 import "../styles/todoItem.css";
 import { isToday } from "date-fns";
 import DateSelector from "./DateSelector";
+import useDatePicker from "../hooks/useDatePicker";
 import Editor from "./Editor";
 import { getFormattedDate } from "../hooks/useDatePicker"
 
 const TodoItem = ({ task, id }) => {
-  const { isSidebarOpen, isWindowResized } = useSidebarContext();
 
+  const { isSidebarOpen, isWindowResized, } = useSidebarContext();
   const {
     handleEditTask,
     clickId,
@@ -22,9 +23,11 @@ const TodoItem = ({ task, id }) => {
     setIsRadioHovered,
   } = useTaskContext();
 
+  const { dateSelected, displayDate } = useDatePicker(task?.dateSelected || null);
   const { attributes, listeners, setNodeRef, isDragging } = useSortable({ id });
-
+  
   const onDeleteTask = () => deleteTask(id);
+  const onEditTask = () => handleEditTask(task, id);
 
   useEffect(() => {
     if (isDragging) {
@@ -35,7 +38,6 @@ const TodoItem = ({ task, id }) => {
     return () => document.body.classList.remove("dragging");
   }, [isDragging]);
 
-  const onEditTask = () => handleEditTask(task, id);
 
   return (
     <div className="task">
@@ -78,9 +80,10 @@ const TodoItem = ({ task, id }) => {
             <div className="task-inputs">
               <span className="item">{task.taskName}</span>
               <p className="task-description">{task.description}</p>
-              {task.dateSelected && !isToday(new Date(task.dateSelected)) && (
+              {task.dateSelected && !isToday((dateSelected)) && (
+                <div className="task-date-selector">
                 <DateSelector
-                  dateSelected={task.dateSelected}
+                  dateSelected={dateSelected}
                   setDateSelected={(newDate) =>
                     updateTask({
                       ...task,
@@ -88,8 +91,9 @@ const TodoItem = ({ task, id }) => {
                       displayDate: getFormattedDate(newDate),
                     })
                   }
-                  displayDate={task.displayDate}
-                />
+                  displayDate={displayDate}
+                  />
+                  </div>
               )}
             </div>
           </div>

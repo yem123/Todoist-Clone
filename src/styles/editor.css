@@ -33,11 +33,13 @@
     outline: none;
     border: none;
     padding: 5px 0 0 0;
+    background-color: inherit;
 }
 
 .text-field::placeholder {
     color: rgba(39, 39, 39, 0.474);
     font-weight: 600;
+    background-color: transparent;
 }
 
 .description {
@@ -45,33 +47,25 @@
     color: #5b5b5bd5;
     border: none;
     outline: none;
+    background-color: inherit;
 }
 
-.date-actions {
-    display: flex;
-    align-items: center;
-    margin-right: auto;
-    border: 1px solid rgba(128, 128, 128, 0.29);
-    border-radius: 5px;
-    padding: 3px;
-    gap: 10px;
-    }
     
-.date-selector {
+.editor-date-selector {
     display: flex;
-    align-items: center;
+        align-items: center;
+        margin-right: auto;
+        border: 1px solid rgba(128, 128, 128, 0.29);
+        border-radius: 5px;
+        padding: 5px;
+        gap: 5px;
+}
+
+.close .material-symbols-outlined{
     font-size: 12px;
-    gap: 5px;
-    padding-right: 5px;
-    cursor: pointer;
-}
-
-.date-actions .cancel>span {
-    display: flex;
-}
-
-.date-actions .cancel:hover {
-    color: rgb(34, 52, 52);
+    text-align: right;
+    padding: 3px;
+    align-self: self-start;
 }
 
 .editor-actions {
@@ -81,6 +75,11 @@
     padding: 3px;
     gap:10px;
     font-size: 12px;
+}
+
+.editor-actions .material-symbols-outlined{
+    font-size: 12px;
+    align-self: center;
 }
 
 .editor-task-category {
@@ -112,7 +111,7 @@ button.cancel:hover {
 button.save {
     background-color: #ff4e4e;
     color: #fff;
-    padding: 6px 20px;
+    padding: 6px;
     border-radius: 4px;
     border-color: transparent;
     cursor: pointer;

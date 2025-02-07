@@ -61,24 +61,26 @@ function Editor() {
           placeholder="Description (optional)"
           onChange={(e) => setDescription(e.target.value)}
         />
-        <div className="date-actions onhover">
-        <DateSelector
-          dateSelected={dateSelected}
-          setDateSelected={setDateSelected}
-          displayDate={displayDate}
+        <div className="editor-date-selector onhover">
+          <DateSelector
+            dateSelected={dateSelected}
+            setDateSelected={setDateSelected}
+            displayDate={displayDate}
           />
           {dateSelected && (
-                  <div className="cancel" onClick={() => setDateSelected(null)}>
-                    <span className="material-symbols-outlined small-icons">close</span>
-                  </div>
-                )}
-          </div>
+            <div className="close" onClick={() => setDateSelected(null)}>
+              <span className="material-symbols-outlined">
+                close
+              </span>
+            </div>
+          )}
+        </div>
       </div>
       <div className="editor-actions">
         <div className="editor-task-category onhover">
-          <span className="material-icons-outlined small-icons">inbox</span>
+          <span className="material-icons-outlined">inbox</span>
           <span>Inbox</span>
-          <span className="material-icons-outlined small-icons">
+          <span className="material-icons-outlined">
             arrow_drop_down
           </span>
         </div>

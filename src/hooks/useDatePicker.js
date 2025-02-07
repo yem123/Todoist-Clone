@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { format, isToday, isTomorrow, isYesterday, isThisWeek, isFuture } from "date-fns";
+import { format, isToday, isTomorrow, isYesterday, isThisWeek, isFuture} from "date-fns";
 
 export const getFormattedDate = (date) => {
   if (!date) return "";
 
-  if (isToday(date)) return "Today";
-  if (isTomorrow(date)) return "Tomorrow";
-  if (isYesterday(date)) return "Yesterday";
-  if (isThisWeek(date, { weekStartsOn: 1 }) && isFuture(date)) return format(date, "EEEE");
+  if (isYesterday(date)) return format(date, "'Yesterday'");
+  if (isToday(date)) return format(date, "'Today'");
+  if (isTomorrow(date)) return format(date, "'Tomorrow'");
+
+  if (isThisWeek(date, { weekStartsOn: 1 }) && isFuture(date))
+     return format(date, "EEEE");
 
   return format(date, "d MMM");
 };

@@ -1,6 +1,6 @@
 import { useTaskContext } from "../context/TaskContext";
 import Task from "./Task";
-import { isToday, isPast, isFuture } from "date-fns";
+import { format, isToday, isPast, isFuture } from "date-fns";
 
 export const TodayTasks = () => {
   const { tasks } = useTaskContext();
@@ -18,9 +18,13 @@ export const OverdueTasks = () => {
   return <Task tasks={overdueTasks} />;
 };
 
-export const UpcomingTasks = () => {
+export const UpcomingTasks = ({selectedDate}) => {
   const { tasks } = useTaskContext();
-  const upcomingTasks = tasks.filter((task) => isFuture(new Date(task.dateSelected)));
+  const upcomingTasks = tasks.filter(
+        (task) =>
+          format(new Date(task.dateSelected), "yyyy-MM-dd") ===
+          format(selectedDate, "yyyy-MM-dd")
+  );
 
   return <Task tasks={upcomingTasks} />;
 };
