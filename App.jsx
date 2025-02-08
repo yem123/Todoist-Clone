@@ -8,14 +8,24 @@ import ViewBar from "./src/components/ViewBar";
 import useClickOutside from "./src/hooks/useClickOutside";
 import { useSidebarContext } from "./src/context/SidebarContext";
 import { Resizable } from "re-resizable";
+import Loading from "./src/components/Loading";
 
 function App() {
   const [isViewBarVisible, setIsViewBarVisible] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const viewButtonRef = useRef(null);
   const viewBarRef = useRef(null);
   const contentRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,63 +68,73 @@ function App() {
    );
 
   return (
-    <Router>
-      <div className="app">
-        <Resizable
-          defaultSize={{ width: 300 }}
-          minWidth={208}
-          maxWidth={420}
-          enable={{ right: true }}
-          style={resizerStyles}
-        >
-          <section
-            ref={sidebarRef}
-            className="side-bar-section no-select"
-            onMouseEnter={() => setShowItems(true)}
-            onMouseLeave={() => setShowItems(false)}
-          >
-            <Sidebar />
-          </section>
-        </Resizable>
-
-        <section
-          className="main-content-section"
-          ref={contentRef}
+    <>
+      {!isLoaded && (
+        <Loading />
+      )}
+      <Router>
+        <div
+          className="app"
           style={{
-            backgroundColor:
-              isSidebarOpen && isWindowResized ? "gray" : "white",
-            pointerEvents: isSidebarOpen && isWindowResized ? "none" : "auto",
-            opacity: isSidebarOpen && isWindowResized ? 0.5 : 1,
-            userSelect: isSidebarOpen && isWindowResized ? "none" : "auto",
-            cursor:
-              isSidebarOpen && isWindowResized ? "not-allowed" : "default",
-            left: isWindowResized
-              ? isSidebarOpen
-                ? "-200px"
-                : "100px"
-              : isSidebarOpen
-              ? 0
-              : "-100px",
-            transition: "left 0.2s ease-in-out",
+            opacity: isLoaded ? 1 : 0,
           }}
         >
-          <section
-            className="view-button-section no-select"
-            ref={viewButtonRef}
-            onClick={() => setIsViewBarVisible((prev) => !prev)}
+          <Resizable
+            defaultSize={{ width: 300 }}
+            minWidth={208}
+            maxWidth={420}
+            enable={{ right: true }}
+            style={resizerStyles}
           >
-            <ViewButton />
-          </section>
-
-          {isViewBarVisible && (
-            <section className="viewbar-section" ref={viewBarRef}>
-              <ViewBar />
+            <section
+              ref={sidebarRef}
+              className="side-bar-section no-select"
+              onMouseEnter={() => setShowItems(true)}
+              onMouseLeave={() => setShowItems(false)}
+            >
+              <Sidebar />
             </section>
-          )}
-          <MainContent isSticky={isSticky} />
-        </section>
-      </div>
-    </Router>
+          </Resizable>
+
+          <section
+            className="main-content-section"
+            ref={contentRef}
+            style={{
+              backgroundColor:
+                isSidebarOpen && isWindowResized ? "gray" : "white",
+              pointerEvents: isSidebarOpen && isWindowResized ? "none" : "auto",
+              opacity: isSidebarOpen && isWindowResized ? 0.5 : 1,
+              userSelect: isSidebarOpen && isWindowResized ? "none" : "auto",
+              cursor:
+                isSidebarOpen && isWindowResized ? "not-allowed" : "default",
+              left: isWindowResized
+                ? isSidebarOpen
+                  ? "-200px"
+                  : "100px"
+                : isSidebarOpen
+                ? 0
+                : "-100px",
+              transition: "left 0.2s ease-in-out",
+            }}
+          >
+            <section
+              className="view-button-section no-select"
+              ref={viewButtonRef}
+              onClick={() => setIsViewBarVisible((prev) => !prev)}
+            >
+              <ViewButton />
+            </section>
+
+            {isViewBarVisible && (
+              <section className="viewbar-section" ref={viewBarRef}>
+                <ViewBar />
+              </section>
+            )}
+            <MainContent isSticky={isSticky} />
+          </section>
+        </div>
+      </Router>
+    </>
   );
 }
 
