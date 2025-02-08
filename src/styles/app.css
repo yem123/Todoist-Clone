@@ -29,8 +29,10 @@
 
 .view-button-section {
   position: absolute;
-  top: 20px;
-  right: 100px;
+  top:0;
+  right:0;
+  padding-top: 20px;
+  padding-right: 100px;
   z-index: 200000;
 }
 

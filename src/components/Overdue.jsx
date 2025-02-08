@@ -39,7 +39,6 @@ const Overdue = () => {
                 paddingLeft: "5px",
                 color: "#f44336",
                 fontSize: "10px",
-                fontWeight: "bold",
               }}
             >{`( ${overdueTasks.length} ${
               overdueTasks.length === 1

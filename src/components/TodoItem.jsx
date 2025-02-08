@@ -122,7 +122,6 @@ const TodoItem = ({ task, id }) => {
               <span className="material-symbols-outlined">inbox</span>
             </div>
           </div>
-          <hr className="task-divider" />
         </li>
       ) : (
         <section className="editor-section">

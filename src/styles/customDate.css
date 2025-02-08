@@ -39,16 +39,16 @@
     align-items: center;
     gap: 5px;
     border: none;
+    padding: 3px 5px;
 }
 
 .material-icons-outlined {
     font-size: 13px;
         color: inherit;
-        font-weight: lighter;
+        font-weight: 300;
 }
 
 .selected-date {
     font-size: 13px;
-    font-weight: lighter;
-
+    font-weight: 400;
 }

@@ -61,7 +61,7 @@ function Editor() {
           placeholder="Description (optional)"
           onChange={(e) => setDescription(e.target.value)}
         />
-        <div className="editor-date-selector onhover">
+        <div className="editor-date-selector">
           <DateSelector
             dateSelected={dateSelected}
             setDateSelected={setDateSelected}

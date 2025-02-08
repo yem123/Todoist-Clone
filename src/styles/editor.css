@@ -54,17 +54,23 @@
 .editor-date-selector {
     display: flex;
         align-items: center;
-        margin-right: auto;
+        justify-self: start;
+        width: fit-content;
         border: 1px solid rgba(128, 128, 128, 0.29);
         border-radius: 5px;
-        padding: 5px;
-        gap: 5px;
+        padding: 2px;
+}
+
+.editor-date-selector:hover {
+    background-color: rgba(216, 216, 216, 0.253);
+    cursor: pointer;
 }
 
 .close .material-symbols-outlined{
     font-size: 12px;
     text-align: right;
-    padding: 3px;
+    padding: 5px;
+    margin: 0;
     align-self: self-start;
 }
 

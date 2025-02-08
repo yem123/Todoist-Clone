@@ -6,23 +6,14 @@
 }
 
 .task-item {
-    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+        justify-content: space-between;
+        width: 100%;
     padding: 10px 0;
     cursor: pointer;
     z-index: auto;
-}
-
-.task-divider {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 97%;  
-    height: 0.05em;
-    background-color: #58585814;
-    border: none;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.408);
+    border-bottom-left-radius: 5%;
 }
 
 .drag-overlay{
@@ -72,9 +63,10 @@
 }
 
 .left-task {
+    box-sizing: border-box;
     display: flex;
     align-self: self-start;
-    justify-content: start;
+    justify-self: start;
     gap: 5px;
 
 }
@@ -131,10 +123,11 @@
 }
 
 .task-actions {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    align-self: stretch;
+    justify-self: end;
     justify-content: space-between;
     gap: 5px;
 }
