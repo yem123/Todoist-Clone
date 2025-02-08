@@ -5,9 +5,14 @@ import { NavLink } from "react-router-dom";
 import "../styles/sidebar.css";
 
 const Sidebar = () => {
-  const { showItems, isSidebarOpen, setIsSidebarOpen, setSidebarWidth } =
-    useSidebarContext();
-  const { tasks } = useTaskContext();
+  const {
+    showItems,
+    isSidebarOpen,
+    setIsSidebarOpen,
+    setSidebarWidth,
+    isWindowResized,
+  } = useSidebarContext();
+  const { tasks, setIsEditorOpen } = useTaskContext();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -23,6 +28,10 @@ const Sidebar = () => {
   const upcomingTasks = tasks.filter((task) =>
     isFuture(new Date(task.dateSelected))
   );
+
+  const handleClick = () => {
+    isWindowResized && setIsSidebarOpen(false);
+  }
 
   return (
     <div className="side-bar-contents">
@@ -64,7 +73,7 @@ const Sidebar = () => {
           </div>
         </div>
       </header>
-      <section className="menu-add onhover">
+      <section className="menu-add onhover" onClick={()=>setIsEditorOpen(true)}>
         <span className="material-icons-outlined plus-icon">add_circle</span>
         <span>Add task</span>
       </section>
@@ -76,7 +85,7 @@ const Sidebar = () => {
               <span>Search</span>
             </div>
           </li>
-          <li className="inbox onhover">
+          <li className="inbox onhover" onClick={handleClick}>
             <div>
               <span className="material-symbols-outlined">inbox</span>
               <span>Inbox</span>
@@ -88,7 +97,7 @@ const Sidebar = () => {
               isActive ? "nav-link active" : "nav-link"
             }
           >
-            <li className="today onhover">
+            <li className="today onhover" onClick={handleClick}>
               <div>
                 <span className="material-symbols-outlined">
                   calendar_today
@@ -104,7 +113,7 @@ const Sidebar = () => {
               isActive ? "nav-link active" : "nav-link"
             }
           >
-            <li className="upcoming onhover">
+            <li className="upcoming onhover" onClick={handleClick}>
               <div>
                 <span className="material-symbols-outlined">
                   calendar_month
@@ -114,7 +123,7 @@ const Sidebar = () => {
               <span className="numbers">{upcomingTasks.length}</span>
             </li>
           </NavLink>
-          <li className="filters onhover">
+          <li className="filters onhover" onClick={handleClick}>
             <div>
               <span className="material-symbols-outlined">grid_view</span>
               <span>Filters & Labels</span>

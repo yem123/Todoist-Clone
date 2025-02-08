@@ -28,11 +28,11 @@
 }
 
 .view-button-section {
-  position: absolute;
+  position: fixed;
   top:0;
   right:0;
-  padding-top: 20px;
-  padding-right: 100px;
+  padding-top: 30px;
+  padding-right: 10px;
   z-index: 200000;
 }
 

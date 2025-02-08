@@ -19,6 +19,7 @@ import {
   isFuture,
   isBefore,
   isSameDay,
+  startOfDay,
 } from "date-fns";
 
 const Today = ({ isSticky }) => {
@@ -28,6 +29,7 @@ const Today = ({ isSticky }) => {
   const [currentWeekNumber, setCurrentWeekNumber] = useState(
     getWeek(new Date())
   );
+
   const [currentWeekStart, setCurrentWeekStart] = useState(
     startOfWeek(new Date(), { weekStartsOn: 1 })
   );
@@ -41,19 +43,30 @@ const Today = ({ isSticky }) => {
   );
 
   const prevWeek = () => {
-    const newWeekStart = subWeeks(currentWeekStart, 1);
+    const newWeekStart = startOfWeek(subWeeks(currentWeekStart, 1), {
+      weekStartsOn: 1,
+    });
+
     setCurrentWeekStart(newWeekStart);
     setCurrentWeekNumber(getWeek(newWeekStart));
+
+    if (isBefore(newWeekStart, startOfDay(addDays(new Date(), 1)))) {
+      setSelectedDate(startOfDay(addDays(new Date(), 1)));
+    } else {
+      setSelectedDate(newWeekStart);
+    }
   };
 
   const nextWeek = () => {
-    const newWeekStart = addWeeks(currentWeekStart, 1);
+    const newWeekStart = startOfWeek(addWeeks(currentWeekStart, 1), {
+      weekStartsOn: 1,
+    });
     setCurrentWeekStart(newWeekStart);
     setCurrentWeekNumber(getWeek(newWeekStart));
+    setSelectedDate(newWeekStart);
   };
-
-  const isPrevDisabled = isBefore(addDays(currentWeekStart, 1), new Date());
     
+  const isPrevDisabled = isBefore(addDays(currentWeekStart, 1), new Date());
     const monthFormatted = format(new Date(selectedDate), "MMMM");
   const yearFormatted = format(new Date(selectedDate), "yyyy");
   
@@ -80,20 +93,20 @@ const Today = ({ isSticky }) => {
   return (
     <>
       <header
-        className="sticky-header"
+        className="upcoming-sticky-box"
         style={{
           borderBottom: isSticky ? "1px solid #58585814" : "",
         }}
       >
-        <span
+        <div className="upcoming-sticky-header"
           style={{
             opacity: isSticky ? 1 : 0,
             transition: "opacity 0.3s ease-in-out",
           }}
         >
-          <div className="upcoming-title">Upcoming</div>
-          <div className="upcoming-date-section">
-            <div className="upcoming-date-selector">
+          <div className="title">Upcoming</div>
+          <div className="date-section">
+            <div className="date-selector">
               <span>
                 {monthFormatted} {yearFormatted}
               </span>
@@ -101,7 +114,7 @@ const Today = ({ isSticky }) => {
                 keyboard_arrow_down
               </span>
             </div>
-            <div className="upcoming-date-navigator">
+            <div className="date-navigator">
               <span
                 className={`material-icons-outlined ${
                   isPrevDisabled ? "day-disabled" : ""
@@ -125,7 +138,7 @@ const Today = ({ isSticky }) => {
               </span>
             </div>
           </div>
-        </span>
+        </div>
       </header>
       <div className="upcoming-contents">
         <div

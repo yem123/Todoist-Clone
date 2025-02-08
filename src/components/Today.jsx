@@ -27,7 +27,7 @@ const Today = ({isSticky}) => {
   return (
     <>
       <header
-        className="sticky-header"
+        className="today-sticky-header"
         style={{
           borderBottom: isSticky ? "1px solid rgba(211, 211, 211, 0.408)" : "",
         }}

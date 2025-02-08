@@ -1,4 +1,4 @@
-.sticky-header {
+.today-sticky-header {
     position: sticky;
     display: flex;
     justify-content: center;
@@ -9,14 +9,14 @@
         padding-top: 10px;
 }
 
-.sticky-header .title {
+.today-sticky-header .title {
     font-size: 16px;
     justify-self: center;
     font-weight: 600;
     color: black;
 }
 
-.sticky-header .total-tasks {
+.today-sticky-header .total-tasks {
     font-size: 12px;
     justify-self: center;
 }
@@ -37,7 +37,7 @@
         font-weight: 600;
         color: black;
         padding-bottom: 10px;
-        
+        z-index: auto;
 }
 
 .total-tasks {

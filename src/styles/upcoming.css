@@ -1,6 +1,6 @@
-.sticky-header {
+.upcoming-sticky-box {
     position: sticky;
-    display: flex;
+    width: 100%;
     top: 0;
     left: 100px;
     z-index: 100;
@@ -9,27 +9,40 @@
   
 }
 
-.sticky-header .title {
+.upcoming-sticky-header{
+    width: 50%;
+    position: fixed;
+    left: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.upcoming-sticky-header .title {
     font-size: 16px;
     font-weight: 600;
     color: black;
 }
 
-.sticky-header .upcoming-date-section{
+.upcoming-sticky-header .date-section{
     display: flex;
     justify-content: space-between;
 }
 
-.sticky-header .date-selector {
+.upcoming-sticky-header .date-selector {
     font-size: 13px;
+    justify-self: start;
    
 }
 
-.sticky-header .material-icons-outlined{
+.upcoming-sticky-header .material-icons-outlined{
     font-size: 15px;
 }
 
-.sticky-header .date-navigator {
+.upcoming-sticky-header .date-navigator {
+    display: flex;
+    align-items: center;
+    justify-self: right;
     font-size: 12px;   
 }
 
@@ -40,6 +53,7 @@
     display: flex;
     flex-direction: column;
     padding: 5px;
+    padding-top: 50px;
 }
 
 .upcoming-header {
@@ -116,10 +130,8 @@
     text-align: center;
     align-self: center;
     top:-14px;
-    right: -12px;
+    right: -6px;
     color:rgb(0, 0, 0);
-    padding: 3px 4px;
-    border-radius:3px;
     font-size: 9px;
 }
 
