@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./src/styles/app.css";
 import MainContent from "./src/components/MainContent";
 import Sidebar from "./src/components/Sidebar";
@@ -11,6 +12,7 @@ import { Resizable } from "re-resizable";
 function App() {
   const [isViewBarVisible, setIsViewBarVisible] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+
   const viewButtonRef = useRef(null);
   const viewBarRef = useRef(null);
   const contentRef = useRef(null);
@@ -56,59 +58,63 @@ function App() {
    );
 
   return (
-    <div className="app">
-      <Resizable
-        defaultSize={{ width: 300 }}
-        minWidth={208}
-        maxWidth={420}
-        enable={{ right: true }}
-        style={resizerStyles}
-      >
-        <section
-          ref={sidebarRef}
-          className="side-bar-section no-select"
-          onMouseEnter={() => setShowItems(true)}
-          onMouseLeave={() => setShowItems(false)}
+    <Router>
+      <div className="app">
+        <Resizable
+          defaultSize={{ width: 300 }}
+          minWidth={208}
+          maxWidth={420}
+          enable={{ right: true }}
+          style={resizerStyles}
         >
-          <Sidebar />
-        </section>
-      </Resizable>
-
-      <section
-        className="main-content-section"
-        ref={contentRef}
-        style={{
-          backgroundColor: isSidebarOpen && isWindowResized ? "gray" : "white",
-          pointerEvents: isSidebarOpen && isWindowResized ? "none" : "auto",
-          opacity: isSidebarOpen && isWindowResized ? 0.5 : 1,
-          userSelect: isSidebarOpen && isWindowResized ? "none" : "auto",
-          cursor: isSidebarOpen && isWindowResized ? "not-allowed" : "default",
-          left: isWindowResized
-            ? isSidebarOpen
-              ? "-200px"
-              : "-100px"
-            : isSidebarOpen
-            ? 0
-            : "-100px",
-          transition: "left 0.2s ease-in-out",
-        }}
-      >
-        <section
-          className="view-button-section no-select"
-          ref={viewButtonRef}
-          onClick={() => setIsViewBarVisible((prev) => !prev)}
-        >
-          <ViewButton />
-        </section>
-
-        {isViewBarVisible && (
-          <section className="viewbar-section" ref={viewBarRef}>
-            <ViewBar />
+          <section
+            ref={sidebarRef}
+            className="side-bar-section no-select"
+            onMouseEnter={() => setShowItems(true)}
+            onMouseLeave={() => setShowItems(false)}
+          >
+            <Sidebar />
           </section>
-        )}
-        <MainContent isSticky={isSticky} />
-      </section>
-    </div>
+        </Resizable>
+
+        <section
+          className="main-content-section"
+          ref={contentRef}
+          style={{
+            backgroundColor:
+              isSidebarOpen && isWindowResized ? "gray" : "white",
+            pointerEvents: isSidebarOpen && isWindowResized ? "none" : "auto",
+            opacity: isSidebarOpen && isWindowResized ? 0.5 : 1,
+            userSelect: isSidebarOpen && isWindowResized ? "none" : "auto",
+            cursor:
+              isSidebarOpen && isWindowResized ? "not-allowed" : "default",
+            left: isWindowResized
+              ? isSidebarOpen
+                ? "-200px"
+                : "100px"
+              : isSidebarOpen
+              ? 0
+              : "-100px",
+            transition: "left 0.2s ease-in-out",
+          }}
+        >
+          <section
+            className="view-button-section no-select"
+            ref={viewButtonRef}
+            onClick={() => setIsViewBarVisible((prev) => !prev)}
+          >
+            <ViewButton />
+          </section>
+
+          {isViewBarVisible && (
+            <section className="viewbar-section" ref={viewBarRef}>
+              <ViewBar />
+            </section>
+          )}
+          <MainContent isSticky={isSticky} />
+        </section>
+      </div>
+    </Router>
   );
 }
 

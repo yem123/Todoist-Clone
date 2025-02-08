@@ -7,22 +7,23 @@
 .overdue-header {
     position: sticky;
         top: 60px;
-        z-index: 1000;
-    background-color: inherit;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     padding: 10px 0;
+    z-index: 90;
 }
 
-.overdue-divider {
+.overdue-header::after {
    position: absolute;
-   top: 30px;
+   content: "";
+   top: 35px;
    right: 0;
     width: 97%;
     height: 1px;
-    background-color: #00000014;
+    background-color: #30303014;
     border: none;
+    margin-left: auto;
 }
 
 .overdue-toggle {
@@ -34,7 +35,7 @@
     font-size: 13.5px;
     color: black;
     font-weight: bolder;
-    margin-left: 5px;
+    padding-left: 5px;
 }
 
 .reschedule-btn {

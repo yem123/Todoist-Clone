@@ -5,25 +5,33 @@
   height: 100vh;
   min-width: 300px;
   overflow: hidden;
+  background-color: white;
 }
 
 .side-bar-section {
+  position: relative;
   background-color: #fffbf7;
   padding: 10px;
   box-sizing: border-box;
-  z-index: 20000;
+  z-index: 200000;
 }
 
 .main-content-section {
   flex: 1;
   overflow-y: auto;
   scrollbar-width:thin;
+  background-color: white;
+}
+
+.main-content-section *{
+  background-color: inherit;
 }
 
 .view-button-section {
   position: absolute;
   top: 20px;
   right: 100px;
+  z-index: 200000;
 }
 
 .viewbar-section {

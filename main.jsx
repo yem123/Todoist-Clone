@@ -6,11 +6,11 @@ import { TaskProvider } from "./src/context/TaskContext.jsx";
 import { SidebarProvider } from "./src/context/SidebarContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <SidebarProvider>
+    <StrictMode>
       <TaskProvider>
-        <App />
+        <SidebarProvider>
+          <App />
+        </SidebarProvider>
       </TaskProvider>
-    </SidebarProvider>
-  </StrictMode>
+    </StrictMode>
 );

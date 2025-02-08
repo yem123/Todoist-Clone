@@ -1,13 +1,13 @@
 import { useSidebarContext } from "../context/SidebarContext";
+import { useTaskContext } from "../context/TaskContext";
+import { isFuture, isToday } from "date-fns";
+import { NavLink } from "react-router-dom";
 import "../styles/sidebar.css";
 
 const Sidebar = () => {
-  const {
-    showItems,
-    isSidebarOpen,
-    setIsSidebarOpen,
-    setSidebarWidth,
-  } = useSidebarContext();
+  const { showItems, isSidebarOpen, setIsSidebarOpen, setSidebarWidth } =
+    useSidebarContext();
+  const { tasks } = useTaskContext();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -15,6 +15,14 @@ const Sidebar = () => {
       setSidebarWidth(300);
     }
   };
+
+  const todayTasks = tasks.filter((task) =>
+      isToday(new Date(task.dateSelected))
+  );
+  
+  const upcomingTasks = tasks.filter((task) =>
+    isFuture(new Date(task.dateSelected))
+  );
 
   return (
     <div className="side-bar-contents">
@@ -41,7 +49,7 @@ const Sidebar = () => {
             onClick={toggleSidebar}
             style={{
               position: "absolute",
-              zIndex: 1000,
+              zIndex: 200000,
               right: isSidebarOpen ? "5px" : "-50px",
             }}
           >
@@ -74,19 +82,38 @@ const Sidebar = () => {
               <span>Inbox</span>
             </div>
           </li>
-          <li className="today onhover">
-            <div>
-              <span className="material-symbols-outlined">calendar_today</span>
-              <span>Today</span>
-            </div>
-            <span className="numbers">2</span>
-          </li>
-          <li className="upcoming onhover">
-            <div>
-              <span className="material-symbols-outlined">calendar_month</span>
-              <span>Upcoming</span>
-            </div>
-          </li>
+          <NavLink
+            to="/today"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            <li className="today onhover">
+              <div>
+                <span className="material-symbols-outlined">
+                  calendar_today
+                </span>
+                <span>Today</span>
+              </div>
+              <span className="numbers">{todayTasks.length}</span>
+            </li>
+          </NavLink>
+          <NavLink
+            to="/upcoming"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            <li className="upcoming onhover">
+              <div>
+                <span className="material-symbols-outlined">
+                  calendar_month
+                </span>
+                <span>Upcoming</span>
+              </div>
+              <span className="numbers">{upcomingTasks.length}</span>
+            </li>
+          </NavLink>
           <li className="filters onhover">
             <div>
               <span className="material-symbols-outlined">grid_view</span>

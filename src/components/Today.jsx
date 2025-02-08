@@ -24,13 +24,14 @@ const Today = ({isSticky}) => {
       !isToday(new Date(task.dateSelected))
   );
 
-  const totalTasks = todayTasks.length + overdueTasks.length;
-
   return (
     <>
-      <header className="sticky-header" style={{
-            borderBottom: isSticky ? "1px solid rgba(211, 211, 211, 0.408)" : "",
-          }}>
+      <header
+        className="sticky-header"
+        style={{
+          borderBottom: isSticky ? "1px solid rgba(211, 211, 211, 0.408)" : "",
+        }}
+      >
         <span
           style={{
             opacity: isSticky ? 1 : 0,
@@ -38,9 +39,11 @@ const Today = ({isSticky}) => {
           }}
         >
           <div className="title">Today</div>
-          {totalTasks > 0 ? (
+          {todayTasks.length > 0 ? (
             <div className="total-tasks">
-              {`${totalTasks} ${totalTasks === 1 ? "task" : "tasks"}`}
+              {`${todayTasks.length} ${
+                todayTasks.length === 1 ? "task" : "tasks"
+              } in waiting list...`}
             </div>
           ) : null}
         </span>
@@ -54,11 +57,13 @@ const Today = ({isSticky}) => {
           }}
         >
           <h1 className="title">Today</h1>
-          {totalTasks > 0 ? (
+          {todayTasks.length > 0 ? (
             <div className="total-tasks">
               <span className="material-icons-outlined">check_circle</span>
               <span>
-                {`${totalTasks} ${totalTasks === 1 ? "task" : "tasks"}`}
+                {`${todayTasks.length} ${
+                  todayTasks.length === 1 ? "task" : "tasks"
+                } in waiting list...`}
               </span>
             </div>
           ) : null}
