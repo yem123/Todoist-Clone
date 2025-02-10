@@ -9,15 +9,17 @@ import useClickOutside from "./src/hooks/useClickOutside";
 import { useSidebarContext } from "./src/context/SidebarContext";
 import { Resizable } from "re-resizable";
 import Loading from "./src/components/Loading";
+import { useTaskContext } from "./src/context/TaskContext";
 
 function App() {
   const [isViewBarVisible, setIsViewBarVisible] = useState(false);
-  const [isSticky, setIsSticky] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const viewButtonRef = useRef(null);
   const viewBarRef = useRef(null);
   const contentRef = useRef(null);
+
+  const { setIsSticky } = useTaskContext();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -130,7 +132,7 @@ function App() {
                 <ViewBar />
               </section>
             )}
-            <MainContent isSticky={isSticky} />
+            <MainContent />
           </section>
         </div>
       </Router>

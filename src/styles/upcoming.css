@@ -1,16 +1,15 @@
 .upcoming-sticky-box {
     position: sticky;
     width: 100%;
+    height: 60px;
     top: 0;
-    left: 100px;
-    z-index: 100;
-    padding-bottom: 10px;
-    padding-top: 10px;
-  
+    z-index: 1000;
+    background-color: inherit;
+   
 }
 
 .upcoming-sticky-header{
-    width: 50%;
+    width: 100%;
     position: fixed;
     left: 25%;
     display: flex;
@@ -27,6 +26,7 @@
 .upcoming-sticky-header .date-section{
     display: flex;
     justify-content: space-between;
+    width:300px
 }
 
 .upcoming-sticky-header .date-selector {
@@ -43,7 +43,7 @@
     display: flex;
     align-items: center;
     justify-self: right;
-    font-size: 12px;   
+    font-size: 12px;  
 }
 
 .upcoming-contents {
@@ -90,7 +90,6 @@
     top: 60px;
     left: 80px;
     display: flex;
-    z-index: 100000;
 }
 
 .upcoming-date-navigator{
@@ -100,7 +99,8 @@
         color: #636363;
         align-items: center;
         border: 1.5px solid rgba(213, 198, 198, 0.289);
-        padding: 3px 4px;      
+        padding: 3px 4px;   
+        z-index: 150;   
 }
 
 .week-number{
@@ -117,7 +117,7 @@
     border-bottom: 1px solid #58585814;
     position: sticky;
         top: 50px;
-        z-index: 90;
+    z-index: 10;
         color: rgb(90, 90, 90);
 }
 
@@ -130,9 +130,11 @@
     text-align: center;
     align-self: center;
     top:-14px;
-    right: -6px;
+    right: 0;
     color:rgb(0, 0, 0);
+    background-color: transparent;
     font-size: 9px;
+    border-radius: 50%;
 }
 
 .day-disabled {
@@ -144,7 +146,6 @@
 .upcoming-tasks-date {
     position: sticky;
     top: 100px;
-    z-index: 60;
     padding: 10px 0;
     padding-left: 30px;
     padding-bottom: 10px;
@@ -152,15 +153,18 @@
     font-size: 13.5px;
     font-weight: bolder;
     color: rgb(0, 0, 0);
+    z-index: 10;
 }
 
 .upcoming-tasks-section {
     padding-top: 30px;
+    z-index: -10;
 }
 
 .upcoming-editor-section {
     padding-top: 5px;
     padding-left: 25px;
+    padding-right: 30px;
 }
 
 .upcoming-editor.hidden {
