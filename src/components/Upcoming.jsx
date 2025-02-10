@@ -9,7 +9,7 @@ import WeeksNavigator from "./WeeksNavigator";
 import UpcomingDateSelector from "./UpcomingDateSelector";
 import { useTaskContext } from "../context/TaskContext";
 import { format, isTomorrow, isFuture } from "date-fns";
-import { useUpcomingContext } from "../context/UpComingContext";
+import { useUpcomingContext } from "../context/UpcomingContext";
 
 const Upcoming = () => {
   const { isEditorOpen, clickId, isSticky } = useTaskContext();

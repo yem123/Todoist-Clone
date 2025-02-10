@@ -1,5 +1,5 @@
 import { format, isBefore, addDays, isSameDay } from "date-fns";
-import { useUpcomingContext } from "../context/UpComingContext";
+import { useUpcomingContext } from "../context/UpcomingContext";
 import { useTaskContext } from "../context/TaskContext";
 
 const WeekDays = () => {
