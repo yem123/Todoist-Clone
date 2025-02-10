@@ -55,7 +55,7 @@ const Inbox = () => {
         )}
 
         {!isEditorOpen &&
-          tasks.length === 0 && (
+          tasks.length === null && (
               <section
                 className="relax-mode"
                 style={{

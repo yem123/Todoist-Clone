@@ -93,8 +93,8 @@ const Today = () => {
         )}
 
         {!isEditorOpen &&
-          todayTasks.length === 0 &&
-          overdueTasks.length === 0(
+          todayTasks.length === null &&
+          overdueTasks.length === null (
               <section
                 className="relax-mode"
                 style={{
