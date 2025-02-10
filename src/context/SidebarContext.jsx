@@ -14,6 +14,7 @@ export const SidebarProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [sidebarWidth, setSidebarWidth] = useState(350);
   const [isWindowResized, setIsWindowResized] = useState(false);
+  
 
   useEffect(() => {
     const updateSidebarWidth = () => {

@@ -13,7 +13,7 @@ import { useTaskContext } from "../context/TaskContext";
 import TodoItem from "./TodoItem";
 
 const Task = ({tasks}) => {
-  const { setTasks } = useTaskContext();
+  const { setTasks, pageContext } = useTaskContext();
   const sensors = useDnDSensors();
 
   const [overId, setOverId] = useState(null);

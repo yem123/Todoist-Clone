@@ -8,9 +8,9 @@ import "../styles/today.css";
 import RelaxMode from "./RelaxMode";
 import { format, isPast, isToday } from "date-fns";
 
-const Today = ({isSticky}) => {
+const Today = () => {
   const { isWindowResized } = useSidebarContext();
-  const { tasks, isEditorOpen, clickId } = useTaskContext();
+  const { tasks, isEditorOpen, clickId, isSticky } = useTaskContext();
 
 
   const todayTasks = tasks.filter((task) =>
@@ -27,7 +27,7 @@ const Today = ({isSticky}) => {
   return (
     <>
       <header
-        className="today-sticky-header"
+        className="today-sticky-box"
         style={{
           borderBottom: isSticky ? "1px solid rgba(211, 211, 211, 0.408)" : "",
         }}
@@ -92,16 +92,18 @@ const Today = ({isSticky}) => {
           </section>
         )}
 
-        {!isEditorOpen && tasks.length === 0 && (
-          <section
-            className="relax-mode"
-            style={{
-              mixBlendMode: isWindowResized ? "multiply" : "normal",
-            }}
-          >
-            <RelaxMode />
-          </section>
-        )}
+        {!isEditorOpen &&
+          todayTasks.length === 0 &&
+          overdueTasks.length === 0(
+              <section
+                className="relax-mode"
+                style={{
+                  mixBlendMode: isWindowResized ? "multiply" : "normal",
+                }}
+              >
+                <RelaxMode />
+              </section>
+            )}
       </div>
     </>
   );

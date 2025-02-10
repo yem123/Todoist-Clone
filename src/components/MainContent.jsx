@@ -2,17 +2,26 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import "../styles/mainContent.css";
 import Today from "./Today";
 import Upcoming from "./Upcoming";
+import Inbox from "./Inbox";
 
-const MainContent = ({ isSticky }) => {
+const MainContent = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<Navigate to="/today" />} />
         <Route
+          path="/inbox"
+          element={
+            <section className="today-section no-select">
+              <Inbox />
+            </section>
+          }
+        />
+        <Route
           path="/today"
           element={
             <section className="today-section no-select">
-              <Today isSticky={isSticky} />
+              <Today />
             </section>
           }
         />
@@ -20,7 +29,7 @@ const MainContent = ({ isSticky }) => {
           path="/upcoming"
           element={
             <section className="upcoming-section no-select">
-              <Upcoming isSticky={isSticky} />
+              <Upcoming />
             </section>
           }
         />

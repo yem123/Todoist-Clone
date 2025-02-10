@@ -24,6 +24,8 @@ export const TaskProvider = ({ children }) => {
   const [clickId, setClickId] = useState(null);
   const [isHovered, setIsHovered] = useState(null);
   const [isRadioHovered, setIsRadioHovered] = useState(null);
+  const [isSticky, setIsSticky] = useState(false);
+  const [pageContext, setPageContext] = useState("Today");
 
   useEffect(() => {
     try {
@@ -74,6 +76,10 @@ export const TaskProvider = ({ children }) => {
         setIsHovered,
         isRadioHovered,
         setIsRadioHovered,
+        isSticky,
+        setIsSticky,
+        setPageContext,
+        pageContext,
       }}
     >
       {children}

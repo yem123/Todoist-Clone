@@ -21,6 +21,7 @@ const TodoItem = ({ task, id }) => {
     isRadioHovered,
     setIsHovered,
     setIsRadioHovered,
+    pageContext,
   } = useTaskContext();
 
   const { dateSelected, displayDate } = useDatePicker(task?.dateSelected || null);
@@ -80,21 +81,23 @@ const TodoItem = ({ task, id }) => {
             <div className="task-inputs">
               <span className="item">{task.taskName}</span>
               <p className="task-description">{task.description}</p>
-              {task.dateSelected && !isToday((dateSelected)) && (
-                <div className="task-date-selector">
-                <DateSelector
-                  dateSelected={dateSelected}
-                  setDateSelected={(newDate) =>
-                    updateTask({
-                      ...task,
-                      dateSelected: newDate,
-                      displayDate: getFormattedDate(newDate),
-                    })
-                  }
-                  displayDate={displayDate}
-                  />
+              {task.dateSelected &&
+                (pageContext !== "Today" ||
+                  !isToday(new Date(task.dateSelected))) && (
+                  <div className="task-date-selector">
+                    <DateSelector
+                      dateSelected={dateSelected}
+                      setDateSelected={(newDate) =>
+                        updateTask({
+                          ...task,
+                          dateSelected: newDate,
+                          displayDate: getFormattedDate(newDate),
+                        })
+                      }
+                      displayDate={displayDate}
+                    />
                   </div>
-              )}
+                )}
             </div>
           </div>
           <div className="task-actions">

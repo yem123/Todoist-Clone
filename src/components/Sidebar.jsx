@@ -29,9 +29,14 @@ const Sidebar = () => {
     isFuture(new Date(task.dateSelected))
   );
 
-  const handleClick = () => {
+  const handleLinkClick = () => {
     isWindowResized && setIsSidebarOpen(false);
   }
+
+  const handleAddClick = () => {
+    isWindowResized && setIsSidebarOpen(false);
+    setIsEditorOpen(true);
+  };
 
   return (
     <div className="side-bar-contents">
@@ -73,7 +78,10 @@ const Sidebar = () => {
           </div>
         </div>
       </header>
-      <section className="menu-add onhover" onClick={()=>setIsEditorOpen(true)}>
+      <section
+        className="menu-add onhover"
+        onClick={handleAddClick}
+      >
         <span className="material-icons-outlined plus-icon">add_circle</span>
         <span>Add task</span>
       </section>
@@ -85,19 +93,27 @@ const Sidebar = () => {
               <span>Search</span>
             </div>
           </li>
-          <li className="inbox onhover" onClick={handleClick}>
-            <div>
-              <span className="material-symbols-outlined">inbox</span>
-              <span>Inbox</span>
-            </div>
-          </li>
+          <NavLink
+            to="/inbox"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            <li className="inbox onhover" onClick={handleLinkClick}>
+              <div>
+                <span className="material-symbols-outlined">inbox</span>
+                <span>Inbox</span>
+              </div>
+              <span className="numbers">{tasks.length}</span>
+            </li>
+          </NavLink>
           <NavLink
             to="/today"
             className={({ isActive }) =>
               isActive ? "nav-link active" : "nav-link"
             }
           >
-            <li className="today onhover" onClick={handleClick}>
+            <li className="today onhover" onClick={handleLinkClick}>
               <div>
                 <span className="material-symbols-outlined">
                   calendar_today
@@ -113,7 +129,7 @@ const Sidebar = () => {
               isActive ? "nav-link active" : "nav-link"
             }
           >
-            <li className="upcoming onhover" onClick={handleClick}>
+            <li className="upcoming onhover" onClick={handleLinkClick}>
               <div>
                 <span className="material-symbols-outlined">
                   calendar_month
@@ -123,7 +139,7 @@ const Sidebar = () => {
               <span className="numbers">{upcomingTasks.length}</span>
             </li>
           </NavLink>
-          <li className="filters onhover" onClick={handleClick}>
+          <li className="filters onhover" onClick={handleLinkClick}>
             <div>
               <span className="material-symbols-outlined">grid_view</span>
               <span>Filters & Labels</span>
@@ -145,14 +161,14 @@ const Sidebar = () => {
                 <span className="material-icons-outlined hash">tag</span>
                 <span>Grocery-List</span>
               </div>
-              <span className="numbers">11</span>
+              <span className="numbers"></span>
             </li>
             <li className="sub-category-contents onhover">
               <div className="sub-category-label">
                 <span className="material-icons-outlined hash">tag</span>
                 <span> Work</span>
               </div>
-              <span className="numbers">5</span>
+              <span className="numbers"></span>
             </li>
           </ul>
         </section>
