@@ -3,17 +3,17 @@ import { useSidebarContext } from "../context/SidebarContext";
 import Add from "./Add";
 import Editor from "./Editor";
 import { InboxTasks } from "./TaskFilters";
-import "../styles/today.css";
+import "../styles/inbox.css";
 import RelaxMode from "./RelaxMode";
 
 const Inbox = () => {
   const { isWindowResized } = useSidebarContext();
-  const { tasks, isEditorOpen, clickId, isSticky } = useTaskContext();
+  const { tasks, isEditorOpen, isClickId, isSticky } = useTaskContext();
 
   return (
     <>
       <header
-        className="today-sticky-box"
+        className="inbox-sticky-box"
         style={{
           borderBottom: isSticky ? "1px solid rgba(211, 211, 211, 0.408)" : "",
         }}
@@ -28,7 +28,7 @@ const Inbox = () => {
           Inbox
         </div>
       </header>
-      <div className="today-contents">
+      <div className="inbox-contents">
         <div
           className="header"
           style={{
@@ -42,29 +42,26 @@ const Inbox = () => {
           <InboxTasks />
         </section>
 
-        {isEditorOpen && !clickId && (
-          <section className="editor-section">
-            <Editor />
-          </section>
+        {isEditorOpen && isClickId === null && ( 
+            <Editor className="editor-section" />
         )}
 
-        {!isEditorOpen && !clickId && (
+        {!isEditorOpen && isClickId === null && (
           <section className="add-task-section">
             <Add />
           </section>
         )}
 
-        {!isEditorOpen &&
-          tasks.length === null && (
-              <section
-                className="relax-mode"
-                style={{
-                  mixBlendMode: isWindowResized ? "multiply" : "normal",
-                }}
-              >
-                <RelaxMode />
-              </section>
-            )}
+        {!isEditorOpen && tasks.length === null && (
+          <section
+            className="relax-mode"
+            style={{
+              mixBlendMode: isWindowResized ? "multiply" : "normal",
+            }}
+          >
+            <RelaxMode />
+          </section>
+        )}
       </div>
     </>
   );

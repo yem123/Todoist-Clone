@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { isPast, isToday, isFuture } from "date-fns";
 import useClickOutside from "../hooks/useClickOutside";
+import { useTaskContext } from "../context/TaskContext";
 import "../styles/customDate.css";
 
 function DateSelector({ dateSelected, setDateSelected, displayDate }) {
@@ -11,10 +12,12 @@ function DateSelector({ dateSelected, setDateSelected, displayDate }) {
   const datePickerRef = useRef(null);
 
   useClickOutside([dateButtonRef, datePickerRef], () => setIsPickerOpen(false));
+  const { setPageContext } = useTaskContext();
 
   const handleDateChange = (date) => {
     setDateSelected(date);
     setIsPickerOpen(false);
+    setPageContext("Today");
   };
 
   return (

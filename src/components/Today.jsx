@@ -10,7 +10,7 @@ import { format, isPast, isToday } from "date-fns";
 
 const Today = () => {
   const { isWindowResized } = useSidebarContext();
-  const { tasks, isEditorOpen, clickId, isSticky } = useTaskContext();
+  const { tasks, isEditorOpen, isClickId, isSticky } = useTaskContext();
 
 
   const todayTasks = tasks.filter((task) =>
@@ -80,13 +80,11 @@ const Today = () => {
           <TodayTasks />
         </section>
 
-        {isEditorOpen && !clickId && (
-          <section className="editor-section">
-            <Editor />
-          </section>
+        {isEditorOpen && isClickId === null && (
+            <Editor className="editor-section" />
         )}
 
-        {!isEditorOpen && !clickId && (
+        {!isEditorOpen && isClickId === null && (
           <section className="add-task-section">
             <Add />
           </section>
@@ -94,7 +92,8 @@ const Today = () => {
 
         {!isEditorOpen &&
           todayTasks.length === null &&
-          overdueTasks.length === null (
+          overdueTasks.length ===
+            null(
               <section
                 className="relax-mode"
                 style={{

@@ -10,6 +10,7 @@ import { useSidebarContext } from "./src/context/SidebarContext";
 import { Resizable } from "re-resizable";
 import Loading from "./src/components/Loading";
 import { useTaskContext } from "./src/context/TaskContext";
+import Editor from "./src/components/Editor";
 
 function App() {
   const [isViewBarVisible, setIsViewBarVisible] = useState(false);
@@ -18,8 +19,10 @@ function App() {
   const viewButtonRef = useRef(null);
   const viewBarRef = useRef(null);
   const contentRef = useRef(null);
+  const addButtonRef = useRef(null);
+  const editorRef = useRef(null);
 
-  const { setIsSticky } = useTaskContext();
+  const { setIsSticky, isClickId, setIsClickId, setIsEditorOpen } = useTaskContext();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,7 +51,7 @@ function App() {
         content.removeEventListener("scroll", handleScroll);
       }
     };
-  }, []);
+  }, [setIsSticky]);
  
     const {
       sidebarRef,
@@ -67,13 +70,17 @@ function App() {
   
   useClickOutside([viewButtonRef, viewBarRef], () =>
     setIsViewBarVisible(false)
-   );
+  );
+  
+  useClickOutside([addButtonRef, editorRef], () => {
+    setIsClickId(null);
+    setIsEditorOpen(false);
+  }
+  );
 
   return (
     <>
-      {!isLoaded && (
-        <Loading />
-      )}
+      {!isLoaded && <Loading />}
       <Router>
         <div
           className="app"
@@ -94,7 +101,7 @@ function App() {
               onMouseEnter={() => setShowItems(true)}
               onMouseLeave={() => setShowItems(false)}
             >
-              <Sidebar />
+              <Sidebar addButtonRef={addButtonRef} />
             </section>
           </Resizable>
 
@@ -104,19 +111,10 @@ function App() {
             style={{
               backgroundColor:
                 isSidebarOpen && isWindowResized ? "gray" : "white",
-              pointerEvents: isSidebarOpen && isWindowResized ? "none" : "auto",
               opacity: isSidebarOpen && isWindowResized ? 0.5 : 1,
               userSelect: isSidebarOpen && isWindowResized ? "none" : "auto",
-              cursor:
-                isSidebarOpen && isWindowResized ? "not-allowed" : "default",
-              left: isWindowResized
-                ? isSidebarOpen
-                  ? "-200px"
-                  : "100px"
-                : isSidebarOpen
-                ? 0
-                : "-100px",
-              transition: "left 0.2s ease-in-out",
+              cursor: isSidebarOpen && isWindowResized ? "none" : "pointer",
+              overflow: isSidebarOpen && isWindowResized ? "hidden" : "auto",
             }}
           >
             <section
@@ -134,6 +132,12 @@ function App() {
             )}
             <MainContent />
           </section>
+          {isClickId === "globalEditor" && (
+            <Editor
+              className="global-editor"
+              editorRef = {editorRef}
+            />
+          )}
         </div>
       </Router>
     </>

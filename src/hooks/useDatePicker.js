@@ -16,7 +16,7 @@ export const getFormattedDate = (date) => {
 
 const useDatePicker = (initialDate = null) => {
   const [dateSelected, setDateSelected] = useState(
-    initialDate ? new Date(initialDate) : null
+    initialDate ? new Date(initialDate) : new Date()
   );
   const [displayDate, setDisplayDate] = useState("");
 

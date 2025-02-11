@@ -5,6 +5,7 @@ const RelaxMode = () => {
       <img
         className="today-image"
         src="../rabbit.png"
+        loading="lazy"
         alt="Celebratory rabbit"
       />
       <div className="task-motivation">

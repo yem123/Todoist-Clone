@@ -14,7 +14,7 @@ const TodoItem = ({ task, id }) => {
   const { isSidebarOpen, isWindowResized, } = useSidebarContext();
   const {
     handleEditTask,
-    clickId,
+    isClickId,
     deleteTask,
     updateTask,
     isHovered,
@@ -42,7 +42,7 @@ const TodoItem = ({ task, id }) => {
 
   return (
     <div className="task">
-      {clickId !== task.id ? (
+      {isClickId !== task.id ? (
         <li
           className="task-item"
           ref={setNodeRef}
@@ -83,7 +83,7 @@ const TodoItem = ({ task, id }) => {
               <p className="task-description">{task.description}</p>
               {task.dateSelected &&
                 (pageContext !== "Today" ||
-                  !isToday(new Date(task.dateSelected))) && (
+                  !isToday(task.dateSelected)) && (
                   <div className="task-date-selector">
                     <DateSelector
                       dateSelected={dateSelected}
@@ -119,17 +119,16 @@ const TodoItem = ({ task, id }) => {
                 delete
               </span>
             </div>
-
-            <div className="task-category">
-              <span className="category-label">Inbox</span>
-              <span className="material-symbols-outlined">inbox</span>
-            </div>
+            {pageContext !== "Inbox" &&
+              <div className="task-category">
+                <span className="category-label">Inbox</span>
+                <span className="material-symbols-outlined">inbox</span>
+              </div>
+            }
           </div>
         </li>
       ) : (
-        <section className="editor-section">
-          <Editor />
-        </section>
+          <Editor className="editor-section"/>
       )}
     </div>
   );

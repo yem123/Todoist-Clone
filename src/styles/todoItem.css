@@ -9,10 +9,11 @@
     display: flex;
         justify-content: space-between;
         width: 100%;
-    padding: 10px 0;
-    cursor: pointer;
+    padding: 5px 0;
+    cursor: inherit;
     border-bottom: 1px solid rgba(211, 211, 211, 0.408);
     border-bottom-left-radius: 5%;
+    background-color: inherit;
 }
 
 .drag-overlay{
@@ -95,8 +96,7 @@
     justify-content: start;
     align-self: center;
     font-size: 14px;
-    gap: 5px;
-    
+    gap: 3px;
 }
 
 .task-description {
@@ -150,3 +150,4 @@
 .task-category span {
     font-size: 12px;
 }
+

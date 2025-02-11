@@ -2,20 +2,23 @@ import useTaskForm from "../hooks/useTaskForm";
 import useDatePicker from "../hooks/useDatePicker";
 import { saveTaskUtil } from "../utils/taskUtils";
 import { useTaskContext } from "../context/TaskContext";
+import { useSidebarContext } from "../context/SidebarContext";
 import DateSelector from "./DateSelector";
 import "../styles/customDate.css";
 import "../styles/editor.css";
 
-function Editor() {
+function Editor({className, editorRef}) {
   const {
     tasks,
     setTasks,
     editTask,
     setEditTask,
     setIsEditorOpen,
-    setClickId,
+    setIsClickId,
     setIsHovered
   } = useTaskContext();
+
+  const { isWindowResized } = useSidebarContext();
 
   const { taskName, setTaskName, description, setDescription, resetForm } =
     useTaskForm(editTask);
@@ -35,19 +38,30 @@ function Editor() {
     resetForm();
     resetDate();
     setEditTask(null);
-    setClickId(null);
+    setIsClickId(null);
   };
 
   const cancelEditor = () => {
     resetForm();
     setEditTask(null);
     setIsEditorOpen(false);
-    setClickId(null);
+    setIsClickId(null);
     setIsHovered(false);
   };
 
+  console.log({ isWindowResized });
+
   return (
-    <section className="editor-container">
+    <section
+      className={`editor-container ${className}`}
+      ref={editorRef}
+      style={{
+        top: className === "global-editor" && isWindowResized ? "50px":"100px",
+        left:
+          className === "global-editor" && isWindowResized ? "50px" : "480px",
+        width: className === "global-editor" && isWindowResized ? "400px":"500px",
+      }}
+    >
       <div className="input-contents">
         <input
           className="text-field"
@@ -69,9 +83,7 @@ function Editor() {
           />
           {dateSelected && (
             <div className="close" onClick={() => setDateSelected(null)}>
-              <span className="material-symbols-outlined">
-                close
-              </span>
+              <span className="material-symbols-outlined">close</span>
             </div>
           )}
         </div>
@@ -80,9 +92,7 @@ function Editor() {
         <div className="editor-task-category onhover">
           <span className="material-icons-outlined">inbox</span>
           <span>Inbox</span>
-          <span className="material-icons-outlined">
-            arrow_drop_down
-          </span>
+          <span className="material-icons-outlined">arrow_drop_down</span>
         </div>
 
         <div className="editor-actions">

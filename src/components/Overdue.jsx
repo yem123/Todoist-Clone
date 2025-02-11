@@ -12,10 +12,10 @@ const Overdue = () => {
   const { tasks } = useTaskContext();
 
   const overdueTasks = tasks.filter(
-      (task) =>
-        isPast(new Date(task.dateSelected)) &&
-        !isToday(new Date(task.dateSelected))
-    );
+    (task) =>
+      task.dateSelected !== null && isPast(new Date(task.dateSelected)) &&
+      !isToday(new Date(task.dateSelected))
+  );
 
   const handleExpand = () => {
     setIsExpand((prev) => !prev);

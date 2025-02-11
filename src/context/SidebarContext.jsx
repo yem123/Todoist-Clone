@@ -58,8 +58,8 @@ export const SidebarProvider = ({ children }) => {
     height: "100%",
     animation: `${
       isSidebarOpen
-        ? "sidebarSlideIn 0.3s forwards"
-        : "sidebarSlideOut 0.3s forwards"
+        ? "sidebarSlideIn 0.5s forwards"
+        : "sidebarSlideOut 0.5s forwards"
     }`,
     borderRight: "2px solid #ddd",
   };

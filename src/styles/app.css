@@ -13,7 +13,6 @@
   background-color: #fffbf7;
   padding: 10px;
   box-sizing: border-box;
-  z-index: 200000;
 }
 
 .main-content-section {
@@ -23,15 +22,11 @@
   background-color: white;
 }
 
-.main-content-section *{
-  background-color: inherit;
-}
-
 .view-button-section {
   position: fixed;
   top:0;
-  right:0;
-  padding-top: 30px;
+  right:20px;
+  padding-top: 25px;
   padding-right: 10px;
   z-index: 200000;
 }
@@ -42,6 +37,14 @@
   right: 20px;
   width: 290px;
   z-index: 300000;
+}
+
+.global-editor {
+  position: fixed;
+  height: 170px;
+  box-shadow: 5px 15px 50px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  z-index: 400000;
 }
 
 @keyframes sidebarSlideOut {

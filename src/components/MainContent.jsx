@@ -12,7 +12,7 @@ const MainContent = () => {
         <Route
           path="/inbox"
           element={
-            <section className="today-section no-select">
+            <section className="inbox-section no-select">
               <Inbox />
             </section>
           }

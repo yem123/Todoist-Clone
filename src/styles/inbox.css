@@ -1,4 +1,4 @@
-.today-sticky-box {
+.inbox-sticky-box {
     position: sticky;
     display: flex;
     justify-content: center;
@@ -6,33 +6,33 @@
     left: 100px;
     padding-bottom: 10px;
     padding-top: 10px;
-    background-color: inherit;
     z-index: 1000;
+    background-color: inherit;
 }
 
-.today-sticky-box .title {
+.inbox-sticky-box .title {
     font-size: 16px;
     justify-self: center;
     font-weight: 600;
     color: black;
 }
 
-.today-sticky-box .total-tasks {
+.inbox-sticky-box .total-tasks {
     font-size: 12px;
     justify-self: center;
 }
 
-.today-contents{
+.inbox-contents{
     width: 100%;
         justify-self: center;
         max-width: 850px;
         display: flex;
         flex-direction: column;
         padding: 5px;
-    background-color: inherit;  
+        background-color: inherit;
 }
 
-.today-contents .header {
+.inbox-contents .header {
     position: relative;
         font-size: 24px;
         padding-left: 30px;
@@ -56,10 +56,10 @@
 
 .overdue-section {
    padding-bottom: 10px;
-   background-color: inherit;
+   
 }
 
-.today-tasks-date {
+.inbox-tasks-date {
     position: sticky;
     top: 40px;
     padding: 30px 0 10px 0;
@@ -69,10 +69,9 @@
     font-weight: bolder;
     color: rgb(0, 0, 0);
     z-index: 90;
-    background-color: inherit;
 }
 
-.today-tasks-section {
+.inbox-tasks-section {
     padding-top: 30px;
 }
 

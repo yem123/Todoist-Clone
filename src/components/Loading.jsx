@@ -21,6 +21,7 @@ function Loading() {
           height: "auto",
         }}
         alt="Loading Logo"
+        loading="lazy"
       />
       <div
         style={{

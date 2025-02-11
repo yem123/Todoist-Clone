@@ -15,12 +15,15 @@ export const TodayTasks = () => {
 export const OverdueTasks = () => {
   const { tasks, setPageContext } = useTaskContext();
   const overdueTasks = tasks.filter(
-    (task) => isPast(new Date(task.dateSelected)) && !isToday(new Date(task.dateSelected))
+    (task) =>
+      task.dateSelected !== null && isPast(new Date(task.dateSelected)) &&
+      !isToday(new Date(task.dateSelected))
   );
 
    useEffect(() => {
      setPageContext("Overdue");
    }, [setPageContext]);
+  
 
   return <Task tasks={overdueTasks} />;
 };

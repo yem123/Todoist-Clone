@@ -12,7 +12,7 @@ import { format, isTomorrow, isFuture } from "date-fns";
 import { useUpcomingContext } from "../context/UpcomingContext";
 
 const Upcoming = () => {
-  const { isEditorOpen, clickId, isSticky } = useTaskContext();
+  const { isEditorOpen, isClickId, isSticky } = useTaskContext();
   const { selectedDate } = useUpcomingContext();
   
   const upcomingFormatted = isTomorrow(selectedDate)
@@ -36,12 +36,12 @@ const Upcoming = () => {
             transition: "opacity 0.3s ease-in-out",
           }}
         >
-          <div className="title">Upcoming</div>
-          <div className="date-section">
+          <div className="date-n-title">
+            <div className="title">Upcoming</div>
             <UpcomingDateSelector />
-            <div className="upcoming-date-navigator">
-              <WeeksNavigator />
-            </div>
+          </div>
+          <div className="upcoming-date-navigator">
+            <WeeksNavigator />
           </div>
         </div>
       </header>
@@ -50,7 +50,7 @@ const Upcoming = () => {
           className="upcoming-header"
           style={{
             opacity: isSticky ? 0 : 1,
-            transition: "all 0.1s ease-in-out",
+            transition: "all 0.3s ease-in-out",
           }}
         >
           <h1 className="upcoming-title">Upcoming</h1>
@@ -74,13 +74,11 @@ const Upcoming = () => {
           <UpcomingTasks selectedDate={selectedDate} />
         </section>
 
-        {isEditorOpen && !clickId && (
-          <section className="upcoming-editor-section">
-            <Editor />
-          </section>
+        {isEditorOpen && isClickId === null && (
+          <Editor className="upcoming-editor-section" />
         )}
 
-        {!isEditorOpen && !clickId && (
+        {!isEditorOpen && isClickId === null && (
           <section className="upcoming-add-task-section">
             <Add />
           </section>

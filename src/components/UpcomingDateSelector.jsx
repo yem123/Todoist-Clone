@@ -36,7 +36,7 @@ const UpcomingDateSelector = () => {
         onClick={() => setIsPickerOpen((prev) => !prev)}
       >
         <span>
-          <b>{monthFormatted}</b> {yearFormatted}
+          <span className="upcoming-month">{monthFormatted}</span> {yearFormatted}
         </span>
         <span className="material-icons-outlined">keyboard_arrow_down</span>
       </div>

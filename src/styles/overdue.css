@@ -1,7 +1,9 @@
+
 .overdue-contents {
     display: flex;
     flex-direction: column;
     position: relative;
+    background-color: inherit;
 }
 
 .overdue-header {
@@ -14,8 +16,10 @@
     margin-left: 20px;
     border-bottom: 1px solid rgba(211, 211, 211, 0.408);
     border-bottom-left-radius: 5%;
-    z-index: 90;
+    z-index: 100;
+    background-color: inherit;
 }
+
 .overdue-toggle {
     display: flex;
     align-items: center;

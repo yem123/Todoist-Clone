@@ -1,3 +1,4 @@
+
 .upcoming-sticky-box {
     position: sticky;
     width: 100%;
@@ -5,45 +6,47 @@
     top: 0;
     z-index: 1000;
     background-color: inherit;
-   
 }
 
 .upcoming-sticky-header{
-    width: 100%;
-    position: fixed;
-    left: 25%;
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    width: 70%;
+    justify-content: space-around;
+    justify-self: right;
+    margin-left: auto;
 }
 
-.upcoming-sticky-header .title {
+.upcoming-sticky-header .date-n-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: right;
+}
+
+.date-n-title .title {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     color: black;
 }
 
-.upcoming-sticky-header .date-section{
-    display: flex;
-    justify-content: space-between;
-    width:300px
-}
-
-.upcoming-sticky-header .date-selector {
-    font-size: 13px;
-    justify-self: start;
-   
+.date-n-title .upcoming-date-selector {
+    font-size: 13px;  
+    font-weight: normal;
 }
 
 .upcoming-sticky-header .material-icons-outlined{
     font-size: 15px;
 }
 
-.upcoming-sticky-header .date-navigator {
+.upcoming-sticky-header .upcoming-date-navigator {
     display: flex;
-    align-items: center;
     justify-self: right;
+    align-self: self-end;
     font-size: 12px;  
+}
+.upcoming-sticky-header .week-number{
+    font-size: 12px;
+    font-weight: 500;
 }
 
 .upcoming-contents {
@@ -53,7 +56,8 @@
     display: flex;
     flex-direction: column;
     padding: 5px;
-    padding-top: 50px;
+    padding-top: 10px;
+    background-color: inherit;
 }
 
 .upcoming-header {
@@ -79,6 +83,10 @@
     font-weight:lighter;
 }
 
+.upcoming-date-selector .upcoming-month {
+    font-weight: bold;
+}
+
 .upcoming-date-section .material-icons-outlined {
     font-size: 18px;
     font-weight: normal;
@@ -93,14 +101,14 @@
 }
 
 .upcoming-date-navigator{
-    display: flex;
     font-size: 13px;
+    width: fit-content;
+    height: fit-content;
         font-weight: lighter;
         color: #636363;
         align-items: center;
         border: 1.5px solid rgba(213, 198, 198, 0.289);
-        padding: 3px 4px;   
-        z-index: 150;   
+        padding: 3px 4px;     
 }
 
 .week-number{
@@ -111,14 +119,17 @@
 }
 
 .upcoming-days-of-week{
+    position: sticky;
+        top: 100px;
     display: flex;
     justify-content: space-around;
     font-size: 13px;
     border-bottom: 1px solid #58585814;
     position: sticky;
-        top: 50px;
-    z-index: 10;
-        color: rgb(90, 90, 90);
+    top: 50px;
+    color: rgb(90, 90, 90);
+    z-index: 100;
+    background-color: inherit;
 }
 
 .upcoming-days{
@@ -132,9 +143,7 @@
     top:-14px;
     right: 0;
     color:rgb(0, 0, 0);
-    background-color: transparent;
     font-size: 9px;
-    border-radius: 50%;
 }
 
 .day-disabled {
@@ -153,18 +162,18 @@
     font-size: 13.5px;
     font-weight: bolder;
     color: rgb(0, 0, 0);
-    z-index: 10;
+    z-index: 90;
+    background-color: inherit;
 }
 
 .upcoming-tasks-section {
     padding-top: 30px;
-    z-index: -10;
 }
 
 .upcoming-editor-section {
     padding-top: 5px;
-    padding-left: 25px;
-    padding-right: 30px;
+    margin-left: 40px;
+    max-width: 90%;
 }
 
 .upcoming-editor.hidden {

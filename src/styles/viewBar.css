@@ -1,10 +1,11 @@
+
 .view-bar {
     display: flex;
     flex-direction: column;
-    background-color: white;
     border: 1px solid rgb(218, 218, 218);
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(195, 195, 195, 0.566);
+    background-color: white;
 }
 
 .view-section {

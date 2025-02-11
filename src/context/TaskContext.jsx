@@ -21,7 +21,7 @@ export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState(() => getInitialTodos());
   const [editTask, setEditTask] = useState(null);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
-  const [clickId, setClickId] = useState(null);
+  const [isClickId, setIsClickId] = useState(null);
   const [isHovered, setIsHovered] = useState(null);
   const [isRadioHovered, setIsRadioHovered] = useState(null);
   const [isSticky, setIsSticky] = useState(false);
@@ -41,18 +41,20 @@ export const TaskProvider = ({ children }) => {
   const saveTask = (newTask) => setTasks((prev) => [...prev, newTask]);
 
   const updateTask = (updatedTask) => {
-    setTasks((prev) =>
-      prev.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+    setTasks((prevTasks) =>
+      prevTasks.map(
+        (task) => (task.id === updatedTask.id ? { ...updatedTask } : task)
+      )
     );
   };
 
   const handleAddTask = () => {
-    setClickId(null);
+    setIsClickId(null);
     setIsEditorOpen(true);
   };
 
   const handleEditTask = (task, id) => {
-    setClickId(task.id)
+    setIsClickId(task.id)
     setEditTask(tasks.find((t) => t.id === id));
   };
 
@@ -70,8 +72,8 @@ export const TaskProvider = ({ children }) => {
         updateTask,
         handleAddTask,
         handleEditTask,
-        setClickId,
-        clickId,
+        setIsClickId,
+        isClickId,
         isHovered,
         setIsHovered,
         isRadioHovered,

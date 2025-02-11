@@ -1,3 +1,4 @@
-.today-section .upcoming-section {
-    padding-left: 0 100px;
+.inbox-section, .today-section, .upcoming-section {
+    padding: 0 50px;
+    background-color: inherit;
 }
