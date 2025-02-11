@@ -58,8 +58,8 @@ function Editor({className, editorRef}) {
       style={{
         top: className === "global-editor" && isWindowResized ? "50px":"100px",
         left:
-          className === "global-editor" && isWindowResized ? "50px" : "480px",
-        width: className === "global-editor" && isWindowResized ? "400px":"500px",
+          className === "global-editor" && isWindowResized ? "50px" : "30%",
+        width: className === "global-editor" && isWindowResized ? window.width:"500px",
       }}
     >
       <div className="input-contents">
