@@ -94,7 +94,7 @@
  .global-editor {
    position: fixed;
    top: auto;
-  bottom: 200px;
+  bottom: 250px;
     left: 10px;
     height: 170px;
    width: 90%;
