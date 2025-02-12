@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./src/styles/app.css";
 import MainContent from "./src/components/MainContent";
 import Sidebar from "./src/components/Sidebar";
+import NavBar from "./src/components/NavBar"
 import ViewButton from "./src/components/ViewButton";
 import ViewBar from "./src/components/ViewBar";
 import useClickOutside from "./src/hooks/useClickOutside";
@@ -81,6 +82,7 @@ function App() {
   return (
     <>
       {!isLoaded && <Loading />}
+
       <Router>
         <div
           className="app"
@@ -88,22 +90,30 @@ function App() {
             opacity: isLoaded ? 1 : 0,
           }}
         >
-          <Resizable
-            defaultSize={{ width: 300 }}
-            minWidth={208}
-            maxWidth={420}
-            enable={{ right: true }}
-            style={resizerStyles}
-          >
-            <section
-              ref={sidebarRef}
-              className="side-bar-section no-select"
-              onMouseEnter={() => setShowItems(true)}
-              onMouseLeave={() => setShowItems(false)}
+          {!isWindowResized ? (
+            <Resizable
+              defaultSize={{ width: 300 }}
+              minWidth={208}
+              maxWidth={420}
+              enable={{ right: true }}
+              style={resizerStyles}
             >
-              <Sidebar addButtonRef={addButtonRef} />
-            </section>
-          </Resizable>
+              <section
+                ref={sidebarRef}
+                className="side-bar-section no-select"
+                onMouseEnter={() => setShowItems(true)}
+                onMouseLeave={() => setShowItems(false)}
+              >
+                <div className="sidebar-section">
+                  <Sidebar addButtonRef={addButtonRef} />
+                </div>
+              </section>
+            </Resizable>
+          ) : (
+            <div className="navbar-section">
+              <NavBar />
+            </div>
+          )}
 
           <section
             className="main-content-section"
@@ -133,10 +143,7 @@ function App() {
             <MainContent />
           </section>
           {isClickId === "globalEditor" && (
-            <Editor
-              className="global-editor"
-              editorRef = {editorRef}
-            />
+            <Editor className="global-editor" editorRef={editorRef} />
           )}
         </div>
       </Router>

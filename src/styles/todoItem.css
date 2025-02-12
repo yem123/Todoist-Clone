@@ -31,7 +31,7 @@
     cursor: pointer !important;
 }
 
-.drag-overlay .action-buttons {
+.drag-overlay .edit-task-btn {
     visibility: hidden;
 }
 
@@ -129,15 +129,10 @@
     gap: 5px;
 }
 
-.action-buttons {
-    display: flex;
-    align-items: start;
-    gap: 10px;
-}
-
-.action-buttons span {
-    color: rgb(177, 177, 177);
+.task-actions .edit-task-btn {
+    color: rgb(206, 120, 81);
     cursor: pointer;
+    font-size: 15px;
 }
 
 .task-category {

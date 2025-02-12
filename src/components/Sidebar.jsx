@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { useSidebarContext } from "../context/SidebarContext";
 import { useTaskContext } from "../context/TaskContext";
 import { isFuture, isToday } from "date-fns";
@@ -73,7 +72,6 @@ const Sidebar = ({addButtonRef}) => {
               onClick={toggleSidebar}
               style={{
                 position: "absolute",
-                zIndex: 200000,
                 right: isSidebarOpen ? "5px" : "-50px",
               }}
             >

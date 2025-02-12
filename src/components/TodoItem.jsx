@@ -11,7 +11,7 @@ import { getFormattedDate } from "../hooks/useDatePicker"
 
 const TodoItem = ({ task, id }) => {
 
-  const { isSidebarOpen, isWindowResized, } = useSidebarContext();
+  const { isWindowResized, } = useSidebarContext();
   const {
     handleEditTask,
     isClickId,
@@ -48,11 +48,10 @@ const TodoItem = ({ task, id }) => {
           ref={setNodeRef}
           {...listeners}
           {...attributes}
-          onMouseEnter={() => setIsHovered(task.id)}
+          onMouseEnter={() => !isWindowResized && setIsHovered(task.id)}
           onMouseLeave={() => setIsHovered(null)}
           style={{
-            backgroundColor:
-              isSidebarOpen && isWindowResized ? "gray" : "white",
+            backgroundColor: "white",
           }}
         >
           <div className="left-task">
@@ -68,7 +67,9 @@ const TodoItem = ({ task, id }) => {
             <div
               className="radio-button"
               onMouseUp={onDeleteTask}
-              onMouseEnter={() => setIsRadioHovered(task.id)}
+              onMouseEnter={() =>
+                !isWindowResized && setIsRadioHovered(task.id)
+              }
               onMouseLeave={() => setIsRadioHovered(null)}
             >
               <span className="material-symbols-outlined">
@@ -82,8 +83,7 @@ const TodoItem = ({ task, id }) => {
               <span className="item">{task.taskName}</span>
               <p className="task-description">{task.description}</p>
               {task.dateSelected &&
-                (pageContext !== "Today" ||
-                  !isToday(task.dateSelected)) && (
+                (pageContext !== "Today" || !isToday(task.dateSelected)) && (
                   <div className="task-date-selector">
                     <DateSelector
                       dateSelected={dateSelected}
@@ -101,34 +101,24 @@ const TodoItem = ({ task, id }) => {
             </div>
           </div>
           <div className="task-actions">
-            <div
-              className={`action-buttons ${
-                isHovered === task.id ? "show" : "hide"
+            <span
+              className={`material-symbols-outlined edit-task-btn ${
+                isWindowResized || isHovered === task.id ? "show" : "hide"
               }`}
+              onMouseUp={onEditTask}
             >
-              <span
-                className="edit-task-btn material-symbols-outlined"
-                onMouseUp={onEditTask}
-              >
-                edit_square
-              </span>
-              <span
-                className="delete-task-btn material-symbols-outlined"
-                onMouseUp={onDeleteTask}
-              >
-                delete
-              </span>
-            </div>
-            {pageContext !== "Inbox" &&
+              edit_square
+            </span>
+            {pageContext !== "Inbox" && (
               <div className="task-category">
                 <span className="category-label">Inbox</span>
                 <span className="material-symbols-outlined">inbox</span>
               </div>
-            }
+            )}
           </div>
         </li>
       ) : (
-          <Editor className="editor-section"/>
+        <Editor className="editor-section" />
       )}
     </div>
   );

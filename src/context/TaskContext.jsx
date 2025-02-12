@@ -19,6 +19,7 @@ const getInitialTodos = () => {
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState(() => getInitialTodos());
+  const [countCompleted, setCountCompleted] = useState(0);
   const [editTask, setEditTask] = useState(null);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isClickId, setIsClickId] = useState(null);
@@ -26,6 +27,7 @@ export const TaskProvider = ({ children }) => {
   const [isRadioHovered, setIsRadioHovered] = useState(null);
   const [isSticky, setIsSticky] = useState(false);
   const [pageContext, setPageContext] = useState("Today");
+  
 
   useEffect(() => {
     try {
@@ -35,8 +37,10 @@ export const TaskProvider = ({ children }) => {
     }
   }, [tasks]);
 
-  const deleteTask = (id) =>
-    setTasks((prev) => prev.filter((task) => task.id !== id));
+  const deleteTask = (taskId) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    setCountCompleted((prevCount) => prevCount + 1);
+  };
 
   const saveTask = (newTask) => setTasks((prev) => [...prev, newTask]);
 
@@ -51,6 +55,10 @@ export const TaskProvider = ({ children }) => {
   const handleAddTask = () => {
     setIsClickId(null);
     setIsEditorOpen(true);
+  };
+
+  const handlePlusButton = () => {
+    setIsClickId("globalEditor");
   };
 
   const handleEditTask = (task, id) => {
@@ -71,6 +79,7 @@ export const TaskProvider = ({ children }) => {
         saveTask,
         updateTask,
         handleAddTask,
+        handlePlusButton,
         handleEditTask,
         setIsClickId,
         isClickId,
@@ -82,6 +91,7 @@ export const TaskProvider = ({ children }) => {
         setIsSticky,
         setPageContext,
         pageContext,
+        countCompleted,
       }}
     >
       {children}

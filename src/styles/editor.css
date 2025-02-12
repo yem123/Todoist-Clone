@@ -32,12 +32,12 @@
     outline: none;
     border: none;
     padding: 5px 0 0 0;
+    caret-color: black;
 }
 
 .text-field::placeholder {
     color: rgba(39, 39, 39, 0.474);
-    font-weight: 600;
-    
+    font-weight: 600;   
 }
 
 .description {

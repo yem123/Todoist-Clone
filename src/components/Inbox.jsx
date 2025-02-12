@@ -52,14 +52,11 @@ const Inbox = () => {
           </section>
         )}
 
-        {!isEditorOpen && tasks.length === null && (
+        {!isEditorOpen && tasks.length === 0 && (
           <section
             className="relax-mode"
-            style={{
-              mixBlendMode: isWindowResized ? "multiply" : "normal",
-            }}
           >
-            <RelaxMode />
+            <RelaxMode  />
           </section>
         )}
       </div>

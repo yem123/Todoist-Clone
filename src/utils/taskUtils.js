@@ -2,6 +2,7 @@ import {
   useSensors,
   useSensor,
   PointerSensor,
+  TouchSensor,
   KeyboardSensor,
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
@@ -35,9 +36,16 @@ export const useDnDSensors = () => {
     useSensor(PointerSensor, {
       activationConstraint: {
         delay: 200,
-        tolerance: 5,
+        tolerance: 10,
       },
     }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 200,
+        tolerance: 10,
+      },
+    }),
+
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })

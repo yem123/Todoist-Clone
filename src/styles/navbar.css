@@ -1,0 +1,32 @@
+.navbar-contents{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  padding-bottom: 50px;
+}
+
+
+
+.navbar-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar-link.active .material-symbols-outlined {
+    background-color: #ff82632b;
+    color: rgb(193, 0, 0);
+    border-radius: 50%;
+}
+
+.items{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.navbar-link .material-symbols-outlined{
+  padding: 5px 15px;
+}

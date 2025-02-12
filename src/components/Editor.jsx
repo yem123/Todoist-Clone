@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import useTaskForm from "../hooks/useTaskForm";
 import useDatePicker from "../hooks/useDatePicker";
 import { saveTaskUtil } from "../utils/taskUtils";
@@ -7,18 +8,22 @@ import DateSelector from "./DateSelector";
 import "../styles/customDate.css";
 import "../styles/editor.css";
 
-function Editor({className, editorRef}) {
+function Editor({ className, editorRef }) {
+  
+  const inputRef = useRef(null);
+
+  const { isWindowResized } = useSidebarContext();
+
   const {
     tasks,
     setTasks,
     editTask,
     setEditTask,
     setIsEditorOpen,
+    isEditorOpen,
     setIsClickId,
     setIsHovered
   } = useTaskContext();
-
-  const { isWindowResized } = useSidebarContext();
 
   const { taskName, setTaskName, description, setDescription, resetForm } =
     useTaskForm(editTask);
@@ -49,21 +54,23 @@ function Editor({className, editorRef}) {
     setIsHovered(false);
   };
 
-  console.log({ isWindowResized });
+  useEffect(() => {
+    const keepFocus = () => {
+      if (document.activeElement !== inputRef.current) {
+        inputRef.current?.focus();
+      }
+    };
+
+    const interval = setInterval(keepFocus, 300);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section
-      className={`editor-container ${className}`}
-      ref={editorRef}
-      style={{
-        top: className === "global-editor" && isWindowResized ? "50px":"100px",
-        left:
-          className === "global-editor" && isWindowResized ? "50px" : "30%",
-        width: className === "global-editor" && isWindowResized ? window.width:"500px",
-      }}
-    >
+    <section className={`editor-container ${className}`} ref={editorRef}>
       <div className="input-contents">
         <input
+          ref={inputRef}
           className="text-field"
           value={taskName}
           placeholder="Task name"

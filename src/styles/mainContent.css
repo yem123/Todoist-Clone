@@ -2,3 +2,13 @@
     padding: 0 50px;
     background-color: inherit;
 }
+
+@media(max-width: 768px) {
+.inbox-section,
+    .today-section,
+    .upcoming-section {
+        width:90vw;
+        padding: 0 10px;
+        margin-bottom: 20px;
+    }
+}

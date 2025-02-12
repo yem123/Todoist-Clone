@@ -91,16 +91,13 @@ const Today = () => {
         )}
 
         {!isEditorOpen &&
-          todayTasks.length === null &&
+          todayTasks.length === 0 &&
           overdueTasks.length ===
-            null(
+            0 && (
               <section
                 className="relax-mode"
-                style={{
-                  mixBlendMode: isWindowResized ? "multiply" : "normal",
-                }}
               >
-                <RelaxMode />
+            <RelaxMode />
               </section>
             )}
       </div>
