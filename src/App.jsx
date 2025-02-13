@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import "./src/styles/app.css";
-import MainContent from "./src/components/MainContent";
-import Sidebar from "./src/components/Sidebar";
-import NavBar from "./src/components/NavBar"
-import ViewButton from "./src/components/ViewButton";
-import ViewBar from "./src/components/ViewBar";
-import useClickOutside from "./src/hooks/useClickOutside";
-import { useSidebarContext } from "./src/context/SidebarContext";
+import "./styles/app.css";
+import MainContent from "./components/MainContent";
+import Sidebar from "./components/Sidebar";
+import NavBar from "./components/NavBar"
+import ViewButton from "./components/ViewButton";
+import ViewBar from "./components/ViewBar";
+import useClickOutside from "./hooks/useClickOutside";
+import { useSidebarContext } from "./context/SidebarContext";
 import { Resizable } from "re-resizable";
-import Loading from "./src/components/Loading";
-import { useTaskContext } from "./src/context/TaskContext";
-import Editor from "./src/components/Editor";
+import Loading from "./components/Loading";
+import { useTaskContext } from "./context/TaskContext";
+import Editor from "./components/Editor";
 
 function App() {
   const [isViewBarVisible, setIsViewBarVisible] = useState(false);
