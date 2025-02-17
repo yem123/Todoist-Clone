@@ -11,8 +11,7 @@ import "../styles/editor.css";
 function Editor({ className, editorRef }) {
   
   const inputRef = useRef(null);
-
-  const { isWindowResized } = useSidebarContext();
+    const descriptionRef = useRef(null);
 
   const {
     tasks,
@@ -20,7 +19,6 @@ function Editor({ className, editorRef }) {
     editTask,
     setEditTask,
     setIsEditorOpen,
-    isEditorOpen,
     setIsClickId,
     setIsHovered
   } = useTaskContext();
@@ -56,7 +54,10 @@ function Editor({ className, editorRef }) {
 
   useEffect(() => {
     const keepFocus = () => {
-      if (document.activeElement !== inputRef.current) {
+      if (
+        document.activeElement !== inputRef.current &&
+        document.activeElement !== descriptionRef.current
+      ) {
         inputRef.current?.focus();
       }
     };
@@ -77,6 +78,7 @@ function Editor({ className, editorRef }) {
           onChange={(e) => setTaskName(e.target.value)}
         />
         <input
+          ref={descriptionRef}
           className="description"
           value={description}
           placeholder="Description (optional)"
